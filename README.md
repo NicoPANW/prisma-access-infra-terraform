@@ -4,7 +4,7 @@ This repository contains the Terraform configurations and helper Python scripts 
 
 ## Prerequisites
 
-1. Copy your credentials file into the root of this project as `auth-token.json`. It must follow this structure:
+1. Create in SCM a service-account for the desired TSG. Copy your credentials file into the root of this project as `auth-token.json`. It must follow this structure:
    ```json
    {
      "client_id": "YOUR_CLIENT_ID",
