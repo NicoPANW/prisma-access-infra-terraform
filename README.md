@@ -64,9 +64,10 @@ This file is the single source of secret credentials for the workspace and must 
    ```bash
    python3 scm_commit_push.py
    ```
-7. Destroy all ressources created
+7. Destroy all ressources created and commit.
    ```bash
    terraform destroy
+   python3 scm_commit_push.py
    ```
 
 
