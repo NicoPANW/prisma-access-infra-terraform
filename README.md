@@ -1,8 +1,19 @@
 # SCM Prisma Access Terraform Automation
 
-This repository contains the Terraform configurations and helper Python scripts to automate deployment of Remote Networks (RN) and Service Connections (SC) on Strata Cloud Manager. It has been tested on a freshly activat new tenant.
-It is not production grade, but rather a way to do a small successful deployment to better understand the mechanics. 
-It uses the official SCM provider https://registry.terraform.io/providers/PaloAltoNetworks/scm/latest
+This repository contains Terraform configurations and helper Python scripts designed to automate the deployment of **Remote Networks (RN)** and **Service Connections (SC)** within Palo Alto Networks **Strata Cloud Manager (SCM)**.
+
+[![SCM Provider](https://img.shields.io/badge/Terraform-SCM%20Provider-blueviolet?logo=terraform)](https://registry.terraform.io/providers/PaloAltoNetworks/scm/latest)
+
+> ℹ️ **Tenant Status**: This codebase has been validated and tested from scratch on a freshly activated, clean SCM tenant.
+
+---
+
+### ⚠️ Disclaimer & Project Scope
+* **Purpose**: This project serves as an educational sandbox to help network security engineers interact with and understand the mechanics of SCM API-driven deployments.
+* **Production Readiness**: This configuration is **not production-grade**. It is designed as a simplified, minimal blueprint to achieve a fast, successful proof-of-concept deployment.
+* **Official Integration**: All resource orchestrations utilize the official [Palo Alto Networks SCM Provider](https://registry.terraform.io/providers/PaloAltoNetworks/scm/latest).
+
+---
 
 ## Purpose of each file
 
@@ -71,5 +82,3 @@ This file is the single source of secret credentials for the workspace and must 
    terraform destroy
    python3 scm_commit_push.py
    ```
-
-
