@@ -1,0 +1,26 @@
+# local secret credential configuration (contains client_secret)
+auth-token.json
+
+# dynamic volatile runtime tokens
+jwt-token.json
+jwt-token.json.lock
+
+# dynamic localized SCM API caches
+RN-region-mappings.json
+region-mappings.json
+
+# local terraform runtime directories & providers
+.terraform/
+.terraform.lock.hcl
+
+# terraform local state files (highly sensitive - contains plain-text PSKs/secrets)
+*.tfstate
+*.tfstate.backup
+
+# python compiler caches
+__pycache__/
+*.pyc
+*.pyo
+
+# MAC
+.DS_Store
