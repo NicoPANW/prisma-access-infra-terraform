@@ -116,8 +116,12 @@ def main():
     if os.path.exists(TOKEN_PATH):
         try:
             token_data = load_config(TOKEN_PATH)
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"Warning: Corrupted token file detected, re-initializing: {e}", file=sys.stderr)
+            token_data = {}
+    else:
+        # Initialize clean token structure on fresh clones to prevent empty read states
+        token_data = {}
 
     # Check token validity and execute refresh inside the lock boundary
     if needs_refresh(token_data):
