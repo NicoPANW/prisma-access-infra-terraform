@@ -42,6 +42,7 @@ This file is the single source of secret credentials for the workspace and must 
 
 *   **`auth-token.json`**: Must be created manually in the root folder using your client credentials and TSG ID scope. It acts as the static, read-only credential source for all automation scripts.
 
+---
 
 ## Workflow
 
