@@ -1,6 +1,7 @@
 # SCM Prisma Access Terraform Automation
 
 This repository contains the Terraform configurations and helper Python scripts to automate deployment of Remote Networks (RN) and Service Connections (SC) on Strata Cloud Manager. It has been tested on a freshly activat new tenant.
+It is not production grade, but rather a way to do a small successful deployment to better understand the mechanics. 
 
 ## Purpose of each file
 
