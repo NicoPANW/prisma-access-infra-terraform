@@ -67,19 +67,36 @@ This file is the single source of secret credentials for the workspace and must 
    python3 RN_fetch_cloud_mapping_regions.py
    ```
 4. Review and update as need be terraform.tfvars file. Note for region parameter for both SC and RN you MUST use the region dispaly name (ie France North, Australia South, Sweden). You can know this via reading the file RN-region-mappings.json
+
+5. Known issue: for a fresh tenant, either you log in via UI and go to "Conf > NGFW and Prisma Access" or you initilise via this API call https://pan.dev/scm/api/config/sase/deployment/create-application-defaults/ (otherwise, it will fail with TF)
    
-5. Initialise Terraform and apply.
+6. Initialise Terraform and apply.
    ```bash
    terraform init
    terraform apply
    ```
 
-6. You can check the result in SCM UI, then you can commit config with this script
+7. You can check the result in SCM UI, then you can commit config with this script
    ```bash
    python3 scm_commit_push.py
    ```
-7. Destroy all ressources created and commit.
+8. Destroy all ressources created and commit.
    ```bash
    terraform destroy
    python3 scm_commit_push.py
    ```
+
+
+## Known issues
+1. In case of dual tunnels with BGP you may run into this issue. It is harmless
+   ```bash
+╷
+│ Error: Provider produced inconsistent result after apply
+│
+│ When applying changes to scm_service_connection.sc["Cust2-SC-dual-tunnel-BGP"], provider "provider[\"registry.terraform.io/paloaltonetworks/scm\"]" produced an unexpected new value: .bgp_peer: inconsistent values for sensitive
+│ attribute.
+│
+│ This is a bug in the provider, which should be reported in the provider's own issue tracker.
+   ```
+
+2. Sometimes token refresh does not work and TF will error out. Relaunching TF command may solve the issue, or run `python3 token_cache_service.py`

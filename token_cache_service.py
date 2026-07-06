@@ -22,6 +22,7 @@ LOCK_PATH = TOKEN_PATH + ".lock"
 def acquire_lock(lock_path, timeout=15):
     """
     Acquires an exclusive atomic file lock to prevent concurrent SCM OAuth grant requests.
+    This prevents race conditions when Terraform runs multi-threaded state refreshes.
     """
     start_time = time.time()
     while True:
@@ -46,6 +47,10 @@ def load_config(path):
         return json.load(f)
 
 def save_token_atomic(path, config, jwt, expires_at, lifetime):
+    """
+    Writes the refreshed token payload to a temporary file first, then performs
+    an OS-level rename to guarantee the write is fully atomic and non-corruptible.
+    """
     config_dir = os.path.dirname(path)
     # Write to a temporary file first, then perform an atomic rename
     tmp_path = os.path.join(config_dir, ".jwt-token.json.tmp")
@@ -67,6 +72,10 @@ def save_token_atomic(path, config, jwt, expires_at, lifetime):
     os.rename(tmp_path, path)
 
 def needs_refresh(token_data, buffer_seconds=300):
+    """
+    Evaluates if the current JWT is expired or nearing its expiration window
+    using a safety buffer (defaults to 5 minutes / 300 seconds).
+    """
     jwt = token_data.get("jwt")
     expires_at_str = token_data.get("jwt_expires_at")
     if not jwt or not expires_at_str:

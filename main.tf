@@ -41,6 +41,8 @@ provider "scm" {
 # CRYPTO PROFILES
 # ==============================================================================
 
+# custom IKE cryptographic profile defining Phase 1 parameters
+# of the IPSec VPN negotiation.
 # Define custom IKE Cryptographic profile using specified high-security settings.
 # These settings govern phase 1 of the IPSec VPN negotiation.
 resource "scm_ike_crypto_profile" "ike" {
@@ -54,6 +56,8 @@ resource "scm_ike_crypto_profile" "ike" {
   }
 }
 
+# custom IPSec cryptographic profile defining Phase 2 parameters
+# of the IPSec VPN negotiation.
 resource "scm_ipsec_crypto_profile" "ipsec" {
   name     = "TF_${var.ipsec_crypto_profile.name}"
   folder   = var.folder
@@ -72,38 +76,42 @@ resource "scm_ipsec_crypto_profile" "ipsec" {
 # ==============================================================================
 
 # 1. IKE Gateway for Service Connection
-resource "scm_ike_gateway" "sc_gw" {
-  # Prepend "TF_" prefix to maintain naming conventions across SCM tenant
-  name   = "TF_${var.service_connection.ike_gateway_name}"
+resource "scm_ike_gateway" "sc_primary_gw" {
+  for_each = var.service_connections
+  name     = "TF_${each.value.primary_ike_gateway_name}"
   folder = "Service Connections"
 
   peer_address = {
-    # "dynamic = {}" instructs SCM to accept incoming connection requests from any IP.
-    # This maps directly to the SCM API requirement of an empty object block.
-    dynamic = {}
+    ip    = each.value.primary_peer_address
+    #if no peer IP, it means dynamic
+    dynamic = each.value.primary_peer_address == null ? {} : null
   }
 
   local_address = {
-    # Bind the connection to the specified internal interface type (e.g., VLAN)
-    interface = var.service_connection.local_address.interface
+    interface = each.value.local_address_interface
   }
 
+  local_id = each.value.primary_local_id != null ? {
+    id   = each.value.primary_local_id.id
+    type = each.value.primary_local_id.type
+  } : null
+
   peer_id = {
-    # Explicit Peer ID matching configuration on the remote peer gateway
-    id   = var.service_connection.peer_id.id
-    type = var.service_connection.peer_id.type
+    id   = each.value.primary_peer_id.id
+    type = each.value.primary_peer_id.type
   }
 
   authentication = {
     pre_shared_key = {
-      key = var.service_connection.psk
+      key = each.value.primary_psk
     }
   }
 
   protocol = {
     version = "ikev2"
     ikev2 = {
-      ike_crypto_profile = scm_ike_crypto_profile.ike.name
+      # Explicit graph link: checks if using custom managed profile, otherwise falls back to variable string
+      ike_crypto_profile = each.value.primary_ike_crypto_profile == "TF_prod-ike-crypto-profile" ? scm_ike_crypto_profile.ike.name : each.value.primary_ike_crypto_profile
       dpd = {
         enable = true
       }
@@ -111,8 +119,64 @@ resource "scm_ike_gateway" "sc_gw" {
   }
   
   protocol_common = {
-    # Passive mode means SCM waits for the remote peer gateway to initiate negotiations
-    passive_mode = var.service_connection.passive_mode
+    passive_mode = each.value.passive_mode
+    nat_traversal = {
+      enable = true
+    }
+    fragmentation = {
+      enable = false
+    }
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+# 2. IKE Secondary Gateway for HA Service Connection (instantiated conditionally)
+resource "scm_ike_gateway" "sc_secondary_gw" {
+  for_each = { for k, v in var.service_connections : k => v if v.enable_secondary }
+  name     = "TF_${each.value.secondary_ike_gateway_name}"
+  folder   = "Service Connections"
+
+  peer_address = {
+    ip    = each.value.secondary_peer_address
+    #if no peer IP, it means dynamic
+    dynamic = each.value.secondary_peer_address == null ? {} : null
+  }
+
+  local_address = {
+    interface = each.value.local_address_interface
+  }
+
+  local_id = each.value.secondary_local_id != null ? {
+    id   = each.value.secondary_local_id.id
+    type = each.value.secondary_local_id.type
+  } : null
+
+  peer_id = {
+    id   = each.value.secondary_peer_id.id
+    type = each.value.secondary_peer_id.type
+  }
+
+  authentication = {
+    pre_shared_key = {
+      key = each.value.secondary_psk
+    }
+  }
+
+  protocol = {
+    version = "ikev2"
+    ikev2 = {
+      ike_crypto_profile = each.value.secondary_ike_crypto_profile == "TF_prod-ike-crypto-profile" ? scm_ike_crypto_profile.ike.name : each.value.secondary_ike_crypto_profile
+      dpd = {
+        enable = true
+      }
+    }
+  }
+  
+  protocol_common = {
+    passive_mode = each.value.passive_mode
     nat_traversal = {
       enable = true
     }
@@ -127,8 +191,9 @@ resource "scm_ike_gateway" "sc_gw" {
 }
 
 # 2. IPSec Tunnel for Service Connection
-resource "scm_ipsec_tunnel" "sc_tunnel" {
-  name   = "TF_${var.service_connection.ipsec_tunnel_name}"
+resource "scm_ipsec_tunnel" "sc_primary_tunnel" {
+  for_each = var.service_connections
+  name     = "TF_${each.value.primary_ipsec_tunnel_name}"
   folder = "Service Connections"
   tunnel_interface         = "tunnel"
   anti_replay              = true
@@ -136,17 +201,15 @@ resource "scm_ipsec_tunnel" "sc_tunnel" {
   enable_gre_encapsulation = false
   
   auto_key = {
-    # Link the IPSec tunnel to our custom IKE gateway and IPSec crypto profile
     ike_gateway = [{
-      name = scm_ike_gateway.sc_gw.name
+      name = scm_ike_gateway.sc_primary_gw[each.key].name
     }]
-    ipsec_crypto_profile = scm_ipsec_crypto_profile.ipsec.name
+    ipsec_crypto_profile = each.value.primary_ipsec_crypto_profile == "TF_prod-ipsec-crypto-profile" ? scm_ipsec_crypto_profile.ipsec.name : each.value.primary_ipsec_crypto_profile
   }
 
   tunnel_monitor = {
-    # Enable continuous tunnel keepalives pointing to the remote BGP peer IP
-    enable         = var.service_connection.tunnel_monitor.enable
-    destination_ip = var.service_connection.tunnel_monitor.destination_ip
+    enable         = true
+    destination_ip = each.value.primary_tunnel_monitor_ip
   }
 
   lifecycle {
@@ -154,56 +217,103 @@ resource "scm_ipsec_tunnel" "sc_tunnel" {
   }
 
   depends_on = [
-    # Prevent tunnel instantiation before the parent gateway configuration finishes
-    scm_ike_gateway.sc_gw
+    scm_ike_gateway.sc_primary_gw
+  ]
+}
+
+# 2. IPSec Secondary Tunnel for HA Service Connection (instantiated conditionally)
+resource "scm_ipsec_tunnel" "sc_secondary_tunnel" {
+  for_each = { for k, v in var.service_connections : k => v if v.enable_secondary }
+  name     = "TF_${each.value.secondary_ipsec_tunnel_name}"
+  folder   = "Service Connections"
+  tunnel_interface         = "tunnel"
+  anti_replay              = true
+  copy_tos                 = false
+  enable_gre_encapsulation = false
+  
+  auto_key = {
+    ike_gateway = [{
+      name = scm_ike_gateway.sc_secondary_gw[each.key].name
+    }]
+    ipsec_crypto_profile = each.value.secondary_ipsec_crypto_profile == "TF_prod-ipsec-crypto-profile" ? scm_ipsec_crypto_profile.ipsec.name : each.value.secondary_ipsec_crypto_profile
+  }
+
+  tunnel_monitor = {
+    enable         = true
+    destination_ip = each.value.secondary_tunnel_monitor_ip
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  depends_on = [
+    scm_ike_gateway.sc_secondary_gw
   ]
 }
 
 # 3. Service Connection Resource itself
 resource "scm_service_connection" "sc" {
-  name         = "TF_${var.service_connection.name}"
-  ipsec_tunnel = scm_ipsec_tunnel.sc_tunnel.name
-  region       = try(local.display_to_cloud_region[var.service_connection.region], var.service_connection.region)
-  region_tag   = var.service_connection.region_tag
-  subnets      = var.service_connection.subnets
+  for_each     = var.service_connections
+  name         = "TF_${each.value.name}"
+  ipsec_tunnel = scm_ipsec_tunnel.sc_primary_tunnel[each.key].name
+  secondary_ipsec_tunnel = each.value.enable_secondary ? scm_ipsec_tunnel.sc_secondary_tunnel[each.key].name : null
+  region       = try(local.display_to_cloud_region[each.value.region], each.value.region)
+  region_tag   = each.value.region_tag
+  subnets      = each.value.subnets
 
-  protocol = {
-    # BGP configuration allowing routing synchronization over the Service Connection
+  # Directly maps the root-level bgp_peer object as a single nested attribute
+  bgp_peer = try(each.value.bgp_peer, null) != null ? {
+    enable           = try(each.value.bgp_peer.enable, true)
+    same_as_primary  = each.value.bgp_peer.same_as_primary
+    peer_ip_address  = each.value.bgp_peer.peer_ip_address
+    local_ip_address = each.value.bgp_peer.local_ip_address
+    secret           = try(each.value.bgp_peer.secret, null)
+  } : null
+
+protocol = {
     bgp = {
-      enable          = var.service_connection.bgp.enable
-      peer_as         = var.service_connection.bgp.peer_as
-      peer_ip_address = var.service_connection.bgp.peer_ip_address
+      enable           = each.value.protocol.bgp.enable
+      peer_as          = each.value.protocol.bgp.peer_as
+      peer_ip_address  = each.value.protocol.bgp.peer_ip_address
+      local_ip_address = each.value.protocol.bgp.local_ip_address
     }
   }
 }
 
 # ==============================================================================
-# REMOTE NETWORKS INFRASTRUCTURE & RESOURCES (x2)
+# REMOTE NETWORKS INFRASTRUCTURE & RESOURCES
 # ==============================================================================
 
 # 1. IKE Gateways for Remote Networks
-resource "scm_ike_gateway" "rn_gw" {
+resource "scm_ike_gateway" "rn_primary_gw" {
   # Create one IKE Gateway per remote network item defined in the tfvars map
   for_each = var.remote_networks
-  name     = "TF_${each.value.ike_gateway_name}"
+  name     = "TF_${each.value.primary_ike_gateway_name}"
   folder   = "Remote Networks"
 
   peer_address = {
-    dynamic = {}
+    ip      = each.value.primary_peer_address
+    dynamic = each.value.primary_peer_address == null ? {} : null
   }
 
   local_address = {
-    interface = each.value.local_address.interface
+    interface = each.value.local_address_interface
   }
 
+  local_id = each.value.primary_local_id != null ? {
+    id   = each.value.primary_local_id.id
+    type = each.value.primary_local_id.type
+  } : null
+
   peer_id = {
-    id   = each.value.peer_id.id
-    type = each.value.peer_id.type
+    id   = each.value.primary_peer_id.id
+    type = each.value.primary_peer_id.type
   }
 
   authentication = {
     pre_shared_key = {
-      key = each.value.psk
+      key = each.value.primary_psk
     }
   }
 
@@ -211,7 +321,63 @@ resource "scm_ike_gateway" "rn_gw" {
     # Bind the protocol definition to IKEv2 and link our custom cryptographic profile
     version = "ikev2"
     ikev2 = {
-      ike_crypto_profile = scm_ike_crypto_profile.ike.name
+      ike_crypto_profile = each.value.primary_ike_crypto_profile == "TF_prod-ike-crypto-profile" ? scm_ike_crypto_profile.ike.name : each.value.primary_ike_crypto_profile
+      dpd = {
+        enable = true
+      }
+    }
+  }
+
+  protocol_common = {
+    passive_mode = each.value.passive_mode
+    nat_traversal = {
+      enable = true
+    }
+    fragmentation = {
+      enable = false
+    }
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+# 1. IKE Secondary Gateway for Remote Networks (instantiated conditionally)
+resource "scm_ike_gateway" "rn_secondary_gw" {
+  for_each = { for k, v in var.remote_networks : k => v if v.enable_secondary }
+  name     = "TF_${each.value.secondary_ike_gateway_name}"
+  folder   = "Remote Networks"
+
+  peer_address = {
+    ip      = lookup(each.value, "secondary_peer_address", null)
+    dynamic = lookup(each.value, "secondary_peer_address", null) == null ? {} : null
+  }
+
+  local_address = {
+    interface = each.value.local_address_interface
+  }
+
+  local_id = each.value.secondary_local_id != null ? {
+    id   = each.value.secondary_local_id.id
+    type = each.value.secondary_local_id.type
+  } : null
+
+  peer_id = {
+    id   = each.value.secondary_peer_id.id
+    type = each.value.secondary_peer_id.type
+  }
+
+  authentication = {
+    pre_shared_key = {
+      key = each.value.secondary_psk
+    }
+  }
+
+  protocol = {
+    version = "ikev2"
+    ikev2 = {
+      ike_crypto_profile = each.value.secondary_ike_crypto_profile == "TF_prod-ike-crypto-profile" ? scm_ike_crypto_profile.ike.name : each.value.secondary_ike_crypto_profile
       dpd = {
         enable = true
       }
@@ -234,10 +400,10 @@ resource "scm_ike_gateway" "rn_gw" {
 }
 
 # 2. IPSec Tunnels for Remote Networks
-resource "scm_ipsec_tunnel" "rn_tunnel" {
+resource "scm_ipsec_tunnel" "rn_primary_tunnel" {
   # Build tunnels for each Remote Network linking dynamically to their matching IKE Gateway
   for_each = var.remote_networks
-  name     = "TF_${each.value.ipsec_tunnel_name}"
+  name     = "TF_${each.value.primary_ipsec_tunnel_name}"
   folder   = "Remote Networks"
   tunnel_interface         = "tunnel"
   anti_replay              = true
@@ -246,19 +412,50 @@ resource "scm_ipsec_tunnel" "rn_tunnel" {
 
   auto_key = {
     ike_gateway = [{
-      name = scm_ike_gateway.rn_gw[each.key].name
+      name = scm_ike_gateway.rn_primary_gw[each.key].name
     }]
-    ipsec_crypto_profile = scm_ipsec_crypto_profile.ipsec.name
+    ipsec_crypto_profile = each.value.primary_ipsec_crypto_profile == "TF_prod-ipsec-crypto-profile" ? scm_ipsec_crypto_profile.ipsec.name : each.value.primary_ipsec_crypto_profile
   }
 
   tunnel_monitor = {
-    enable         = each.value.tunnel_monitor.enable
-    destination_ip = each.value.tunnel_monitor.destination_ip
+    enable         = true
+    destination_ip = each.value.primary_tunnel_monitor_ip
   }
 
   depends_on = [
     # Ensure the matching IKE gateways are active before establishing phase 2 tunnels
-    scm_ike_gateway.rn_gw
+    scm_ike_gateway.rn_primary_gw
+  ]
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+# 2. IPSec Secondary Tunnel for HA Remote Networks (instantiated conditionally)
+resource "scm_ipsec_tunnel" "rn_secondary_tunnel" {
+  for_each = { for k, v in var.remote_networks : k => v if v.enable_secondary }
+  name     = "TF_${each.value.secondary_ipsec_tunnel_name}"
+  folder   = "Remote Networks"
+  tunnel_interface         = "tunnel"
+  anti_replay              = true
+  copy_tos                 = false
+  enable_gre_encapsulation = false
+
+  auto_key = {
+    ike_gateway = [{
+      name = scm_ike_gateway.rn_secondary_gw[each.key].name
+    }]
+    ipsec_crypto_profile = each.value.secondary_ipsec_crypto_profile == "TF_prod-ipsec-crypto-profile" ? scm_ipsec_crypto_profile.ipsec.name : each.value.secondary_ipsec_crypto_profile
+  }
+
+  tunnel_monitor = {
+    enable         = true
+    destination_ip = each.value.secondary_tunnel_monitor_ip
+  }
+
+  depends_on = [
+    scm_ike_gateway.rn_secondary_gw
   ]
 
   lifecycle {
@@ -309,7 +506,8 @@ resource "scm_remote_network" "rn" {
   for_each     = var.remote_networks
   name         = "TF_${each.value.name}"
   folder       = "Remote Networks"
-  ipsec_tunnel = scm_ipsec_tunnel.rn_tunnel[each.key].name
+  ipsec_tunnel = scm_ipsec_tunnel.rn_primary_tunnel[each.key].name
+  secondary_ipsec_tunnel = each.value.enable_secondary ? scm_ipsec_tunnel.rn_secondary_tunnel[each.key].name : null
   # Translate the SCM Bandwidth Region to standard cloud provider compute regions for network attachment
   region       = try(local.display_to_cloud_region[each.value.region], each.value.region)
   # Implicit dependency: Retrieve the dynamically assigned SPN (Service PoP Node) name 
@@ -328,6 +526,13 @@ resource "scm_remote_network" "rn" {
       local_ip_address        = each.value.bgp.local_ip_address
       do_not_export_routes    = each.value.bgp.do_not_export_routes
     }
+    bgp_peer = try(each.value.bgp_peer, null) != null ? {
+      enable           = try(each.value.bgp_peer.enable, true)
+      same_as_primary  = each.value.bgp_peer.same_as_primary
+      peer_as          = try(each.value.bgp_peer.peer_as, each.value.bgp.peer_as)
+      peer_ip_address  = each.value.bgp_peer.peer_ip_address
+      local_ip_address = each.value.bgp_peer.local_ip_address
+    } : null
   } : null
 
   lifecycle {
