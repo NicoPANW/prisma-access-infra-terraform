@@ -66,7 +66,7 @@ This file is the single source of secret credentials for the workspace and must 
    ```bash
    python3 RN_fetch_cloud_mapping_regions.py
    ```
-4. Review and update as need be terraform.tfvars file. Note for region parameter for both SC and RN you MUST use the region dispaly name (ie France North, Australia South, Sweden). You can know this via reading the file RN-region-mappings.json
+4. Review and update as need be `terraform.tfvars` file. Note for region parameter for both SC and RN you MUST use the region dispaly name (ie France North, Australia South, Sweden). You can know this via reading the file RN-region-mappings.json
 
 5. Known issue: for a fresh tenant, either you log in via UI and go to "Conf > NGFW and Prisma Access" or you initilise via this API call https://pan.dev/scm/api/config/sase/deployment/create-application-defaults/ (otherwise, it will fail with TF)
    
