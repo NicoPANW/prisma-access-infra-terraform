@@ -88,15 +88,19 @@ This file is the single source of secret credentials for the workspace and must 
 
 
 ## Known issues
-1. In case of dual tunnels with BGP you may run into this issue. It is harmless
-   ```bash
-╷
-│ Error: Provider produced inconsistent result after apply
-│
-│ When applying changes to scm_service_connection.sc["Cust2-SC-dual-tunnel-BGP"], provider "provider[\"registry.terraform.io/paloaltonetworks/scm\"]" produced an unexpected new value: .bgp_peer: inconsistent values for sensitive
-│ attribute.
-│
-│ This is a bug in the provider, which should be reported in the provider's own issue tracker.
+1. **Inconsistent Values for Sensitive Attribute (`.bgp_peer`)**
+   When deploying dual-tunnel Service Connections with BGP enabled, you may encounter this harmless warning during the `terraform apply` phase. It is a known validation quirk in the auto-generated SCM provider and can be safely ignored:
+
+   ```text
+   Error: Provider produced inconsistent result after apply
+   
+   When applying changes to scm_service_connection.sc["Cust2-SC-dual-tunnel-BGP"], 
+   provider "provider[\"registry.terraform.io/paloaltonetworks/scm\"]" produced an 
+   unexpected new value: .bgp_peer: inconsistent values for sensitive attribute.
    ```
 
-2. Sometimes token refresh does not work and TF will error out. Relaunching TF command may solve the issue, or run `python3 token_cache_service.py`
+2. **Transient Token Refresh Failures**
+   Occasionally, concurrent SCM API authentication limits may cause the token refresh step to fail, resulting in a Terraform provider initialization error. Rerunning your Terraform command or manually refreshing the local cache will resolve this immediately:
+   ```bash
+   python3 token_cache_service.py
+   ```
