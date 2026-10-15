@@ -3,7 +3,7 @@
 # ==============================================================================
 terraform {
   # Ensure the local environment runs a supported version of Terraform
-  required_version = ">= 1.3.0"
+  required_version = ">= 1.14.0"
   required_providers {
     scm = {
       # Strata Cloud Manager (SCM) provider for managing Prisma Access resources
@@ -263,15 +263,22 @@ resource "scm_service_connection" "sc" {
   subnets      = each.value.subnets
 
   # Directly maps the root-level bgp_peer object as a single nested attribute
-  bgp_peer = try(each.value.bgp_peer, null) != null ? {
-    enable           = try(each.value.bgp_peer.enable, true)
-    same_as_primary  = each.value.bgp_peer.same_as_primary
-    peer_ip_address  = each.value.bgp_peer.peer_ip_address
-    local_ip_address = each.value.bgp_peer.local_ip_address
-    secret           = try(each.value.bgp_peer.secret, null)
-  } : null
+  #bgp_peer = try(each.value.bgp_peer, null) != null ? {
+  #  enable           = try(each.value.bgp_peer.enable, true)
+  #  same_as_primary  = each.value.bgp_peer.same_as_primary
+  #  peer_ip_address  = each.value.bgp_peer.peer_ip_address
+  #  local_ip_address = each.value.bgp_peer.local_ip_address
+  #  secret           = try(each.value.bgp_peer.secret, null)
+  #} : null
 
 protocol = {
+    bgp_peer = try(each.value.bgp_peer, null) != null ? {
+      enable           = try(each.value.bgp_peer.enable, true)
+      same_as_primary  = each.value.bgp_peer.same_as_primary
+      peer_ip_address  = each.value.bgp_peer.peer_ip_address
+      local_ip_address = each.value.bgp_peer.local_ip_address
+      secret           = try(each.value.bgp_peer.secret, null)
+    } : null
     bgp = {
       enable           = each.value.protocol.bgp.enable
       peer_as          = each.value.protocol.bgp.peer_as
@@ -463,12 +470,11 @@ resource "scm_ipsec_tunnel" "rn_secondary_tunnel" {
   }
 }
 
-locals {
-  # Check if the region mappings file exists before attempting to read it to prevent plan-time compilation crashes
-  mappings_file_exists = fileexists("${path.module}/RN-region-mappings.json")
+# Query Prisma Access locations natively from the SCM API
+data "scm_location_list" "all" {}
 
-  # Safe decode fallback to an empty array if the mappings file has not been generated yet
-  raw_locations = local.mappings_file_exists ? jsondecode(file("${path.module}/RN-region-mappings.json")) : []
+locals {
+  raw_locations = data.scm_location_list.all.data
 
   # Map 1: Translates the raw display region (e.g. "France North") to SCM's "aggregate_region" (e.g. "france-north") for bandwidth
   display_to_bandwidth_region = {
@@ -537,12 +543,6 @@ resource "scm_remote_network" "rn" {
 
   lifecycle {
     create_before_destroy = true
-
-    # Enforce a strict prerequisite check with an explicit, helpful error message
-    precondition {
-      condition     = local.mappings_file_exists
-      error_message = "Prerequisite Missing: The file 'RN-region-mappings.json' was not found. Please run 'python3 RN_fetch_cloud_mapping_regions.py' beforehand to download the current region mappings database from Strata Cloud Manager."
-    }
   }
 }
 
@@ -575,4 +575,18 @@ resource "scm_security_rule" "secure_internet_access" {
     # Profile group reference mapped exactly to SCM's lowercase case-sensitive default.
     group = ["best-practice"]
   }
+}
+
+# ==============================================================================
+# TENANT BOOTSTRAP ACTION (ONE-TIME INITIALIZATION)
+# ==============================================================================
+# Bootstrap Prisma Access application defaults (certificates, config nodes) on a
+# fresh tenant. One-time, tenant-wide, and effectively irreversible — a fresh
+# tenant needs this before other automation. Requires Terraform >= 1.14 to invoke.
+#
+# Usage:
+#   terraform apply -invoke=action.scm_application_defaults.bootstrap
+
+action "scm_application_defaults" "bootstrap" {
+  config {}
 }

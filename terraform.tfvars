@@ -38,7 +38,7 @@ service_connections = {
   "Cust2-SC-dual-tunnel-BGP" = {
     name                         = "Cust2-SC-dual-tunnel-BGP"
     region                       = "Canada Central"
-    region_tag                   = "PA-O"
+    region_tag                   = "PA-G"
     subnets                      = ["10.0.0.0/24"]
     local_address_interface      = "vlan"
     passive_mode                 = true
@@ -46,7 +46,7 @@ service_connections = {
     # Primary Tunnel Details
     primary_ike_gateway_name     = "ike_Gateway_1783082716072"
     primary_peer_address         = "1.2.3.4"
-    primary_psk                  = "-AQ==cRDtpNCeBiql5KOQsKVyrA0sAiA=0131GnEFDCtKt7/WuBN22Q=="
+    primary_psk                  = "replace-with-yours"
     primary_ike_crypto_profile   = "Others-IKE-Crypto-Default"
     primary_ipsec_tunnel_name    = "Primary"
     primary_ipsec_crypto_profile = "Others-IPSec-Crypto-Default"
@@ -64,7 +64,7 @@ service_connections = {
     enable_secondary               = true
     secondary_ike_gateway_name     = "ike_Gateway_1783082845194"
     secondary_peer_address         = "4.5.6.7"
-    secondary_psk                  = "-AQ==5i01FiUuVfdK9TZuXTCdieT68fI=Khfpt2jBQuxYqRn+h664fQ=="
+    secondary_psk                  = "replace-with-yours"
     secondary_ike_crypto_profile   = "PaloAlto-Networks-IKE-Crypto"
     secondary_ipsec_tunnel_name    = "Secondary"
     secondary_ipsec_crypto_profile = "PaloAlto-Networks-IPSec-Crypto"
