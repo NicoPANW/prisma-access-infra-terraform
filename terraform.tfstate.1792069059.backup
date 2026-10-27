@@ -1,0 +1,2778 @@
+{
+  "version": 4,
+  "terraform_version": "1.15.8",
+  "serial": 1995,
+  "lineage": "24742f7c-749b-aa44-d2c4-721974b2e2f2",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "data",
+      "type": "external",
+      "name": "token_refresh",
+      "provider": "provider[\"registry.terraform.io/hashicorp/external\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "-",
+            "program": [
+              "python3",
+              "./token_cache_service.py"
+            ],
+            "query": null,
+            "result": {
+              "auth_file": "/Users/nmarcoux/Documents/VS code/customer2-terraform/jwt-token.json",
+              "client_id": "TF-Nico@1493606596.iam.panserviceaccount.com",
+              "client_secret": "5c6396dd-21b8-44e3-915d-ee0a8c3677c0",
+              "host": "api.strata.paloaltonetworks.com",
+              "jwt": "eyJ0eXAiOiJKV1QiLCJraWQiOiJyc2Etc2lnbi1wa2NzMS0yMDQ4LXNoYTI1Ni8xIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJiYTkxMzZkOS0yMGRhLTRhZGEtOGFlZi1lNWIyZGNiMjBkZmEiLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXVkaXRUcmFja2luZ0lkIjoiZWNiODJmZTAtZTZhMS00MGI4LWIzNzYtYmFmNTNjZmZjODc5LTMwODg1NTYxMyIsInN1Ym5hbWUiOiJiYTkxMzZkOS0yMGRhLTRhZGEtOGFlZi1lNWIyZGNiMjBkZmEiLCJpc3MiOiJodHRwczovL2F1dGguYXBwcy5wYWxvYWx0b25ldHdvcmtzLmNvbTo0NDMvYW0vb2F1dGgyIiwidG9rZW5OYW1lIjoiYWNjZXNzX3Rva2VuIiwidG9rZW5fdHlwZSI6IkJlYXJlciIsImF1dGhHcmFudElkIjoiWWhvZzhtUTFIaTNPZjRHWFc5SXRQRnJvS1ZNIiwiYXVkIjoiVEYtTmljb0AxNDkzNjA2NTk2LmlhbS5wYW5zZXJ2aWNlYWNjb3VudC5jb20iLCJuYmYiOjE3OTIwNjcxNjcsImdyYW50X3R5cGUiOiJjbGllbnRfY3JlZGVudGlhbHMiLCJzY29wZSI6WyJwcm9maWxlIiwidHNnX2lkOjE0OTM2MDY1OTYiLCJlbWFpbCJdLCJhdXRoX3RpbWUiOjE3OTIwNjcxNjcsInJlYWxtIjoiLyIsImV4cCI6MTc5MjA2ODA2NywiaWF0IjoxNzkyMDY3MTY3LCJleHBpcmVzX2luIjo5MDAsImp0aSI6ImpKekFiVkNzNko0SU1yZFpjeG9MbWhzbWk4SSIsInRzZ19pZCI6IjE0OTM2MDY1OTYiLCJhY2Nlc3MiOnsicHJuOjE0OTM2MDY1OTY6Ojo6IjpbInN1cGVydXNlciIsImJhc2UiXX19.kawFLsc0hCqR5v_P9i2Xz2QRXg_homPFn1OwxfKImgawdP52lsUEeVmZ9X7681YIEY5r-urUqLoMA-l1V5DmuL6hoHiGjL0kQBJ1njVkGS2x4HRJUTgZ_Qe17IJUSPQnksQN8LSMPBKTllQ7JOwUjyyQX6JNfqaZMt8JVUEh_up_FNy1I4UoWUKigMiJPD6n7NptgF-HSsMiW22FrH-jfFfU0a388xp_DeG0qy8IvGLGa3didYKaKKNZ95Ya8SmjilCDLyNS9GHlKYalgi-FBZd-PuWxj-z2rYyDF7ZrlxOf20oKAcQFeGpmqLp32diHTtY1v6SpGs1Ad-fkCzxnRg",
+              "jwt_expires_at": "2026-10-15T12:41:06Z",
+              "jwt_lifetime": "899",
+              "protocol": "https",
+              "scope": "tsg_id:1493606596"
+            },
+            "working_dir": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "data",
+      "type": "scm_location_list",
+      "name": "all",
+      "provider": "provider[\"registry.terraform.io/paloaltonetworks/scm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "data": [
+              {
+                "aggregate_region": "canada-central-toronto",
+                "continent": "North America",
+                "display": "Canada Central",
+                "latitude": 43.64870071411133,
+                "longitude": -79.38545227050781,
+                "region": "northamerica-northeast2",
+                "tfid": null,
+                "value": "canada-central"
+              },
+              {
+                "aggregate_region": "canada-central",
+                "continent": "North America",
+                "display": "Canada East",
+                "latitude": 46.812740325927734,
+                "longitude": -71.21930694580078,
+                "region": "northamerica-northeast1",
+                "tfid": null,
+                "value": "ca-central-1"
+              },
+              {
+                "aggregate_region": "canada-west-calgary",
+                "continent": "North America",
+                "display": "Canada West",
+                "latitude": 49.26039123535156,
+                "longitude": -123.11335754394531,
+                "region": "ca-west-1",
+                "tfid": null,
+                "value": "canada-west"
+              },
+              {
+                "aggregate_region": "us-southeast",
+                "continent": "North America",
+                "display": "Costa Rica",
+                "latitude": 9.928099632263184,
+                "longitude": -84.0906982421875,
+                "region": "us-east1",
+                "tfid": null,
+                "value": "costa-rica"
+              },
+              {
+                "aggregate_region": "us-east",
+                "continent": "North America",
+                "display": "Guatemala",
+                "latitude": 14.628434181213379,
+                "longitude": -90.52271270751953,
+                "region": "us-east4",
+                "tfid": null,
+                "value": "guatemala"
+              },
+              {
+                "aggregate_region": "mexico-central",
+                "continent": "North America",
+                "display": "Mexico Central",
+                "latitude": 19.431949615478516,
+                "longitude": -99.13314819335938,
+                "region": "northamerica-south1",
+                "tfid": null,
+                "value": "mexico-central"
+              },
+              {
+                "aggregate_region": "mexico-central",
+                "continent": "North America",
+                "display": "Mexico West",
+                "latitude": 20.687580108642578,
+                "longitude": -103.35104370117188,
+                "region": "northamerica-south1",
+                "tfid": null,
+                "value": "mexico-west"
+              },
+              {
+                "aggregate_region": "us-southeast",
+                "continent": "North America",
+                "display": "Panama",
+                "latitude": 8.952420234680176,
+                "longitude": -79.5353775024414,
+                "region": "us-east1",
+                "tfid": null,
+                "value": "panama"
+              },
+              {
+                "aggregate_region": "us-central",
+                "continent": "North America",
+                "display": "US Central",
+                "latitude": 39.739200592041016,
+                "longitude": -104.99030303955078,
+                "region": "us-central1",
+                "tfid": null,
+                "value": "us-east-2"
+              },
+              {
+                "aggregate_region": "us-central-west",
+                "continent": "North America",
+                "display": "US Central West",
+                "latitude": 40.760780334472656,
+                "longitude": -111.89105224609375,
+                "region": "us-west3",
+                "tfid": null,
+                "value": "us-west-3"
+              },
+              {
+                "aggregate_region": "us-east",
+                "continent": "North America",
+                "display": "US East",
+                "latitude": 37.45243835449219,
+                "longitude": -76.41686248779297,
+                "region": "us-east4",
+                "tfid": null,
+                "value": "us-east-1"
+              },
+              {
+                "aggregate_region": "us-east",
+                "continent": "North America",
+                "display": "US Northeast",
+                "latitude": 40.71455001831055,
+                "longitude": -74.00714111328125,
+                "region": "us-east4",
+                "tfid": null,
+                "value": "us-northeast"
+              },
+              {
+                "aggregate_region": "us-northwest",
+                "continent": "North America",
+                "display": "US Northwest",
+                "latitude": 43.804100036621094,
+                "longitude": -120.55419921875,
+                "region": "us-west1",
+                "tfid": null,
+                "value": "us-west-2"
+              },
+              {
+                "aggregate_region": "us-south",
+                "continent": "North America",
+                "display": "US South",
+                "latitude": 29.760589599609375,
+                "longitude": -95.36968231201172,
+                "region": "us-south1",
+                "tfid": null,
+                "value": "us-south"
+              },
+              {
+                "aggregate_region": "us-southeast",
+                "continent": "North America",
+                "display": "US Southeast",
+                "latitude": 33.748321533203125,
+                "longitude": -84.39111328125,
+                "region": "us-east1",
+                "tfid": null,
+                "value": "us-southeast"
+              },
+              {
+                "aggregate_region": "us-southwest",
+                "continent": "North America",
+                "display": "US Southwest",
+                "latitude": 34.05220031738281,
+                "longitude": -118.24369812011719,
+                "region": "us-west2",
+                "tfid": null,
+                "value": "us-west-201"
+              },
+              {
+                "aggregate_region": "us-southwest",
+                "continent": "North America",
+                "display": "US West",
+                "latitude": 37.774898529052734,
+                "longitude": -122.41940307617188,
+                "region": "us-west2",
+                "tfid": null,
+                "value": "us-west-1"
+              },
+              {
+                "aggregate_region": "south-america-west",
+                "continent": "South America",
+                "display": "Argentina",
+                "latitude": -34.60850143432617,
+                "longitude": -58.37343978881836,
+                "region": "southamerica-west1",
+                "tfid": null,
+                "value": "argentina"
+              },
+              {
+                "aggregate_region": "south-america-west",
+                "continent": "South America",
+                "display": "Bolivia",
+                "latitude": -17.783679962158203,
+                "longitude": -63.1804084777832,
+                "region": "southamerica-west1",
+                "tfid": null,
+                "value": "bolivia"
+              },
+              {
+                "aggregate_region": "south-america-east",
+                "continent": "South America",
+                "display": "Brazil Central",
+                "latitude": -12.853400230407715,
+                "longitude": -50.41999816894531,
+                "region": "southamerica-east1",
+                "tfid": null,
+                "value": "brazil-central"
+              },
+              {
+                "aggregate_region": "south-america-east",
+                "continent": "South America",
+                "display": "Brazil East",
+                "latitude": -14.272500038146973,
+                "longitude": -40.05979919433594,
+                "region": "southamerica-east1",
+                "tfid": null,
+                "value": "brazil-east"
+              },
+              {
+                "aggregate_region": "south-america-east",
+                "continent": "South America",
+                "display": "Brazil South",
+                "latitude": -25.23349952697754,
+                "longitude": -51.48249816894531,
+                "region": "southamerica-east1",
+                "tfid": null,
+                "value": "sa-east-1"
+              },
+              {
+                "aggregate_region": "south-america-west",
+                "continent": "South America",
+                "display": "Chile",
+                "latitude": -33.43722152709961,
+                "longitude": -70.65001678466797,
+                "region": "southamerica-west1",
+                "tfid": null,
+                "value": "chile"
+              },
+              {
+                "aggregate_region": "us-southeast",
+                "continent": "South America",
+                "display": "Colombia",
+                "latitude": 4.614960193634033,
+                "longitude": -74.06941223144531,
+                "region": "us-east1",
+                "tfid": null,
+                "value": "columbia"
+              },
+              {
+                "aggregate_region": "us-southeast",
+                "continent": "South America",
+                "display": "Ecuador",
+                "latitude": -2.159600019454956,
+                "longitude": -79.92829895019531,
+                "region": "us-east1",
+                "tfid": null,
+                "value": "ecuador"
+              },
+              {
+                "aggregate_region": "south-america-east",
+                "continent": "South America",
+                "display": "Paraguay",
+                "latitude": -25.297380447387695,
+                "longitude": -57.627750396728516,
+                "region": "southamerica-east1",
+                "tfid": null,
+                "value": "paraguay"
+              },
+              {
+                "aggregate_region": "south-america-west",
+                "continent": "South America",
+                "display": "Peru",
+                "latitude": -12.056130409240723,
+                "longitude": -77.02680206298828,
+                "region": "southamerica-west1",
+                "tfid": null,
+                "value": "peru"
+              },
+              {
+                "aggregate_region": "south-america-west",
+                "continent": "South America",
+                "display": "Uruguay",
+                "latitude": -34.9011116027832,
+                "longitude": -56.16453170776367,
+                "region": "southamerica-west1",
+                "tfid": null,
+                "value": "uruguay"
+              },
+              {
+                "aggregate_region": "south-america-east",
+                "continent": "South America",
+                "display": "Venezuela",
+                "latitude": 10.505559921264648,
+                "longitude": -66.91770935058594,
+                "region": "southamerica-east1",
+                "tfid": null,
+                "value": "venezuela"
+              },
+              {
+                "aggregate_region": "europe-southwest",
+                "continent": "Europe",
+                "display": "Andorra",
+                "latitude": 42.79029846191406,
+                "longitude": 1.270799994468689,
+                "region": "europe-southwest1",
+                "tfid": null,
+                "value": "andorra"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Europe",
+                "display": "Austria",
+                "latitude": 48.20262908935547,
+                "longitude": 14.368430137634277,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "austria"
+              },
+              {
+                "aggregate_region": "europe-north",
+                "continent": "Europe",
+                "display": "Belarus",
+                "latitude": 53.90375900268555,
+                "longitude": 27.565439224243164,
+                "region": "europe-north1",
+                "tfid": null,
+                "value": "belarus"
+              },
+              {
+                "aggregate_region": "belgium",
+                "continent": "Europe",
+                "display": "Belgium",
+                "latitude": 50.844390869140625,
+                "longitude": 4.356090068817139,
+                "region": "europe-west1",
+                "tfid": null,
+                "value": "belgium"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Europe",
+                "display": "Bulgaria",
+                "latitude": 42.69718933105469,
+                "longitude": 23.324310302734375,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "bulgaria"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Europe",
+                "display": "Croatia",
+                "latitude": 45.8072395324707,
+                "longitude": 15.967570304870605,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "croatia"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Europe",
+                "display": "Czech Republic",
+                "latitude": 50.07912826538086,
+                "longitude": 14.433030128479004,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "czech-republic"
+              },
+              {
+                "aggregate_region": "europe-west",
+                "continent": "Europe",
+                "display": "Denmark",
+                "latitude": 55.6756706237793,
+                "longitude": 12.567560195922852,
+                "region": "europe-west4",
+                "tfid": null,
+                "value": "denmark"
+              },
+              {
+                "aggregate_region": "europe-north",
+                "continent": "Europe",
+                "display": "Estonia",
+                "latitude": 59.4370002746582,
+                "longitude": 24.753599166870117,
+                "region": "europe-north1",
+                "tfid": null,
+                "value": "estonia"
+              },
+              {
+                "aggregate_region": "europe-north",
+                "continent": "Europe",
+                "display": "Finland",
+                "latitude": 60.71369934082031,
+                "longitude": 23.60569953918457,
+                "region": "europe-north1",
+                "tfid": null,
+                "value": "finland"
+              },
+              {
+                "aggregate_region": "france-north",
+                "continent": "Europe",
+                "display": "France North",
+                "latitude": 48.857181549072266,
+                "longitude": 2.341409921646118,
+                "region": "europe-west9",
+                "tfid": null,
+                "value": "eu-west-3"
+              },
+              {
+                "aggregate_region": "europe-northwest-paris",
+                "continent": "Europe",
+                "display": "France South",
+                "latitude": 43.29336929321289,
+                "longitude": 5.0131001472473145,
+                "region": "europe-west9",
+                "tfid": null,
+                "value": "france-south"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Europe",
+                "display": "Germany Central",
+                "latitude": 50.11207962036133,
+                "longitude": 8.683420181274414,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "eu-central-1"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Europe",
+                "display": "Germany North",
+                "latitude": 53.553749084472656,
+                "longitude": 9.991829872131348,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "germany-north"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Europe",
+                "display": "Germany South",
+                "latitude": 48.13642120361328,
+                "longitude": 11.577549934387207,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "germany-south"
+              },
+              {
+                "aggregate_region": "europe-northwest",
+                "continent": "Europe",
+                "display": "Ghana",
+                "latitude": 5.614818096160889,
+                "longitude": -0.2058739960193634,
+                "region": "europe-west2",
+                "tfid": null,
+                "value": "ghana"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Europe",
+                "display": "Greece",
+                "latitude": 37.77040100097656,
+                "longitude": 22.11009979248047,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "greece"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Europe",
+                "display": "Hungary",
+                "latitude": 47.49972915649414,
+                "longitude": 19.05508041381836,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "hungary"
+              },
+              {
+                "aggregate_region": "ireland",
+                "continent": "Europe",
+                "display": "Ireland",
+                "latitude": 53.142398834228516,
+                "longitude": -7.6921000480651855,
+                "region": "eu-west-1",
+                "tfid": null,
+                "value": "eu-west-1"
+              },
+              {
+                "aggregate_region": "europe-south",
+                "continent": "Europe",
+                "display": "Italy",
+                "latitude": 45.467960357666016,
+                "longitude": 9.181779861450195,
+                "region": "europe-west8",
+                "tfid": null,
+                "value": "italy"
+              },
+              {
+                "aggregate_region": "belgium",
+                "continent": "Europe",
+                "display": "Latvia",
+                "latitude": 56.946285247802734,
+                "longitude": 24.105077743530273,
+                "region": "europe-west1",
+                "tfid": null,
+                "value": "latvia"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Europe",
+                "display": "Liechtenstein",
+                "latitude": 47.167850494384766,
+                "longitude": 9.511150360107422,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "liechtenstein"
+              },
+              {
+                "aggregate_region": "europe-north",
+                "continent": "Europe",
+                "display": "Lithuania",
+                "latitude": 54.69063186645508,
+                "longitude": 25.26980972290039,
+                "region": "europe-north1",
+                "tfid": null,
+                "value": "lithuania"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Europe",
+                "display": "Luxembourg",
+                "latitude": 49.60960006713867,
+                "longitude": 6.129690170288086,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "luxembourg"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Europe",
+                "display": "Moldova",
+                "latitude": 47.024600982666016,
+                "longitude": 28.832429885864258,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "moldova"
+              },
+              {
+                "aggregate_region": "europe-south",
+                "continent": "Europe",
+                "display": "Monaco",
+                "latitude": 43.73286819458008,
+                "longitude": 7.017539978027344,
+                "region": "europe-west8",
+                "tfid": null,
+                "value": "monaco"
+              },
+              {
+                "aggregate_region": "europe-west",
+                "continent": "Europe",
+                "display": "Netherlands Central",
+                "latitude": 52.36994171142578,
+                "longitude": 5.907879829406738,
+                "region": "europe-west4",
+                "tfid": null,
+                "value": "netherlands-central"
+              },
+              {
+                "aggregate_region": "europe-west",
+                "continent": "Europe",
+                "display": "Netherlands South",
+                "latitude": 51.922828674316406,
+                "longitude": 4.478479862213135,
+                "region": "europe-west4",
+                "tfid": null,
+                "value": "netherlands-south"
+              },
+              {
+                "aggregate_region": "europe-north",
+                "continent": "Europe",
+                "display": "Norway",
+                "latitude": 59.91233825683594,
+                "longitude": 10.75,
+                "region": "europe-north1",
+                "tfid": null,
+                "value": "norway"
+              },
+              {
+                "aggregate_region": "europe-central-warsaw",
+                "continent": "Europe",
+                "display": "Poland",
+                "latitude": 52.235599517822266,
+                "longitude": 21.010379791259766,
+                "region": "europe-central2",
+                "tfid": null,
+                "value": "poland"
+              },
+              {
+                "aggregate_region": "europe-southwest",
+                "continent": "Europe",
+                "display": "Portugal",
+                "latitude": 39.315101623535156,
+                "longitude": -7.5040998458862305,
+                "region": "europe-southwest1",
+                "tfid": null,
+                "value": "portugal"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Europe",
+                "display": "Romania",
+                "latitude": 44.43429946899414,
+                "longitude": 26.10297966003418,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "romania"
+              },
+              {
+                "aggregate_region": "europe-north",
+                "continent": "Europe",
+                "display": "Russia Central",
+                "latitude": 55.7569694519043,
+                "longitude": 37.615020751953125,
+                "region": "europe-north1",
+                "tfid": null,
+                "value": "russia-central"
+              },
+              {
+                "aggregate_region": "europe-north",
+                "continent": "Europe",
+                "display": "Russia Northwest",
+                "latitude": 59.93318176269531,
+                "longitude": 30.306049346923828,
+                "region": "europe-north1",
+                "tfid": null,
+                "value": "russia-northwest"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Europe",
+                "display": "Slovakia",
+                "latitude": 49.04924011230469,
+                "longitude": 17.106990814208984,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "slovakia"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Europe",
+                "display": "Slovenia",
+                "latitude": 46.050628662109375,
+                "longitude": 14.502829551696777,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "slovenia"
+              },
+              {
+                "aggregate_region": "europe-southwest",
+                "continent": "Europe",
+                "display": "Spain Central",
+                "latitude": 40.419559478759766,
+                "longitude": -3.691960096359253,
+                "region": "europe-southwest1",
+                "tfid": null,
+                "value": "spain-central"
+              },
+              {
+                "aggregate_region": "europe-southwest",
+                "continent": "Europe",
+                "display": "Spain East",
+                "latitude": 39.366798400878906,
+                "longitude": -1.2964999675750732,
+                "region": "europe-southwest1",
+                "tfid": null,
+                "value": "spain-east"
+              },
+              {
+                "aggregate_region": "europe-north-stockholm",
+                "continent": "Europe",
+                "display": "Sweden",
+                "latitude": 59.05820083618164,
+                "longitude": 16.09160041809082,
+                "region": "europe-north2",
+                "tfid": null,
+                "value": "sweden"
+              },
+              {
+                "aggregate_region": "switzerland",
+                "continent": "Europe",
+                "display": "Switzerland",
+                "latitude": 45.377079010009766,
+                "longitude": 7.539559841156006,
+                "region": "europe-west6",
+                "tfid": null,
+                "value": "switzerland"
+              },
+              {
+                "aggregate_region": "switzerland",
+                "continent": "Europe",
+                "display": "Uganda",
+                "latitude": 0.3475959897041321,
+                "longitude": 32.58251953125,
+                "region": "europe-west6",
+                "tfid": null,
+                "value": "uganda"
+              },
+              {
+                "aggregate_region": "europe-northwest",
+                "continent": "Europe",
+                "display": "UK",
+                "latitude": 51.506431579589844,
+                "longitude": -0.12721000611782074,
+                "region": "europe-west2",
+                "tfid": null,
+                "value": "eu-west-2"
+              },
+              {
+                "aggregate_region": "europe-central-warsaw",
+                "continent": "Europe",
+                "display": "Ukraine",
+                "latitude": 50.45056915283203,
+                "longitude": 30.524280548095703,
+                "region": "europe-central2",
+                "tfid": null,
+                "value": "ukraine"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Europe",
+                "display": "Uzbekistan",
+                "latitude": 41.97679901123047,
+                "longitude": 62.23740005493164,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "uzbekistan"
+              },
+              {
+                "aggregate_region": "bahrain",
+                "continent": "Middle East",
+                "display": "Bahrain",
+                "latitude": 26.066699981689453,
+                "longitude": 50.557701110839844,
+                "region": "me-south-1",
+                "tfid": null,
+                "value": "me-south-1"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Middle East",
+                "display": "Egypt",
+                "latitude": 30.049930572509766,
+                "longitude": 31.248600006103516,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "egypt"
+              },
+              {
+                "aggregate_region": "middle-east-west",
+                "continent": "Middle East",
+                "display": "Israel",
+                "latitude": 30.049930572509766,
+                "longitude": 36.37860107421875,
+                "region": "me-west1",
+                "tfid": null,
+                "value": "israel"
+              },
+              {
+                "aggregate_region": "europe-south",
+                "continent": "Middle East",
+                "display": "Jordan",
+                "latitude": 30.099300384521484,
+                "longitude": 37.7411003112793,
+                "region": "europe-west8",
+                "tfid": null,
+                "value": "jordan"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Middle East",
+                "display": "Kuwait",
+                "latitude": 29.09425926208496,
+                "longitude": 48.076019287109375,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "kuwait"
+              },
+              {
+                "aggregate_region": "me-central-qatar",
+                "continent": "Middle East",
+                "display": "Qatar",
+                "latitude": 25.286100387573242,
+                "longitude": 51.5348014831543,
+                "region": "me-central1",
+                "tfid": null,
+                "value": "qatar"
+              },
+              {
+                "aggregate_region": "me-central-saudi-arabia",
+                "continent": "Middle East",
+                "display": "Saudi Arabia",
+                "latitude": 24.682180404663086,
+                "longitude": 46.687191009521484,
+                "region": "me-central2",
+                "tfid": null,
+                "value": "saudi-arabia"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Middle East",
+                "display": "Turkey",
+                "latitude": 41.06071090698242,
+                "longitude": 28.987720489501953,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "turkey"
+              },
+              {
+                "aggregate_region": "me-central-uae",
+                "continent": "Middle East",
+                "display": "United Arab Emirates",
+                "latitude": 25.121749877929688,
+                "longitude": 56.333988189697266,
+                "region": "me-central-1",
+                "tfid": null,
+                "value": "uae"
+              },
+              {
+                "aggregate_region": "europe-south",
+                "continent": "Africa",
+                "display": "Kenya",
+                "latitude": -2.0782999992370605,
+                "longitude": 38.707000732421875,
+                "region": "europe-west8",
+                "tfid": null,
+                "value": "kenya"
+              },
+              {
+                "aggregate_region": "europe-central",
+                "continent": "Africa",
+                "display": "Nigeria",
+                "latitude": 7.593900203704834,
+                "longitude": 6.081900119781494,
+                "region": "europe-west3",
+                "tfid": null,
+                "value": "nigeria"
+              },
+              {
+                "aggregate_region": "belgium",
+                "continent": "Africa",
+                "display": "Senegal",
+                "latitude": -17.46768569946289,
+                "longitude": 14.716676712036133,
+                "region": "europe-west1",
+                "tfid": null,
+                "value": "senegal"
+              },
+              {
+                "aggregate_region": "south-africa-central",
+                "continent": "Africa",
+                "display": "South Africa Central",
+                "latitude": -27.033000946044922,
+                "longitude": 26.80940055847168,
+                "region": "africa-south1",
+                "tfid": null,
+                "value": "south-africa-central"
+              },
+              {
+                "aggregate_region": "south-africa-west",
+                "continent": "Africa",
+                "display": "South Africa West",
+                "latitude": -32.07749938964844,
+                "longitude": 19.454999923706055,
+                "region": "af-south-1",
+                "tfid": null,
+                "value": "south-africa-west"
+              },
+              {
+                "aggregate_region": "asia-south",
+                "continent": "Asia",
+                "display": "Bangladesh",
+                "latitude": 23.71320915222168,
+                "longitude": 90.39956665039062,
+                "region": "asia-south1",
+                "tfid": null,
+                "value": "bangladesh"
+              },
+              {
+                "aggregate_region": "asia-southeast",
+                "continent": "Asia",
+                "display": "Cambodia",
+                "latitude": 11.552510261535645,
+                "longitude": 104.87901306152344,
+                "region": "asia-southeast1",
+                "tfid": null,
+                "value": "cambodia"
+              },
+              {
+                "aggregate_region": "hong-kong",
+                "continent": "Asia",
+                "display": "Hong Kong",
+                "latitude": 22.278310775756836,
+                "longitude": 114.160400390625,
+                "region": "asia-east2",
+                "tfid": null,
+                "value": "hong-kong"
+              },
+              {
+                "aggregate_region": "india-north",
+                "continent": "Asia",
+                "display": "India North",
+                "latitude": 28.63096046447754,
+                "longitude": 77.21727752685547,
+                "region": "asia-south2",
+                "tfid": null,
+                "value": "india-north"
+              },
+              {
+                "aggregate_region": "asia-south",
+                "continent": "Asia",
+                "display": "India South",
+                "latitude": 13.083629608154297,
+                "longitude": 80.28251647949219,
+                "region": "asia-south1",
+                "tfid": null,
+                "value": "india-south"
+              },
+              {
+                "aggregate_region": "asia-south",
+                "continent": "Asia",
+                "display": "India West",
+                "latitude": 18.940170288085938,
+                "longitude": 72.8348617553711,
+                "region": "asia-south1",
+                "tfid": null,
+                "value": "ap-south-1"
+              },
+              {
+                "aggregate_region": "asia-southeast-indonesia",
+                "continent": "Asia",
+                "display": "Indonesia",
+                "latitude": -6.171480178833008,
+                "longitude": 106.82649230957031,
+                "region": "asia-southeast2",
+                "tfid": null,
+                "value": "indonesia"
+              },
+              {
+                "aggregate_region": "europe-north",
+                "continent": "Asia",
+                "display": "Kazakhstan",
+                "latitude": 51.16939163208008,
+                "longitude": 71.4490737915039,
+                "region": "europe-north1",
+                "tfid": null,
+                "value": "kazakhstan"
+              },
+              {
+                "aggregate_region": "asia-southeast",
+                "continent": "Asia",
+                "display": "Malaysia",
+                "latitude": 3.147900104522705,
+                "longitude": 101.69405364990234,
+                "region": "asia-southeast1",
+                "tfid": null,
+                "value": "malaysia"
+              },
+              {
+                "aggregate_region": "asia-southeast",
+                "continent": "Asia",
+                "display": "Myanmar",
+                "latitude": 16.882139205932617,
+                "longitude": 96.13262939453125,
+                "region": "asia-southeast1",
+                "tfid": null,
+                "value": "myanmar"
+              },
+              {
+                "aggregate_region": "asia-south",
+                "continent": "Asia",
+                "display": "Pakistan South",
+                "latitude": 24.896120071411133,
+                "longitude": 66.99931335449219,
+                "region": "asia-south1",
+                "tfid": null,
+                "value": "pakistan-south"
+              },
+              {
+                "aggregate_region": "asia-south",
+                "continent": "Asia",
+                "display": "Pakistan West",
+                "latitude": 31.539440155029297,
+                "longitude": 74.30348205566406,
+                "region": "asia-south1",
+                "tfid": null,
+                "value": "pakistan-west"
+              },
+              {
+                "aggregate_region": "asia-southeast",
+                "continent": "Asia",
+                "display": "Pakistan West (II)",
+                "latitude": 30.550830841064453,
+                "longitude": 73.39083099365234,
+                "region": "asia-southeast1",
+                "tfid": null,
+                "value": "pakistan-west-2"
+              },
+              {
+                "aggregate_region": "australia-southeast",
+                "continent": "Asia",
+                "display": "Papua New Guinea",
+                "latitude": -5.0746002197265625,
+                "longitude": 139.0623016357422,
+                "region": "australia-southeast1",
+                "tfid": null,
+                "value": "papua-new-guinea"
+              },
+              {
+                "aggregate_region": "asia-southeast",
+                "continent": "Asia",
+                "display": "Philippines",
+                "latitude": 14.647660255432129,
+                "longitude": 121.051513671875,
+                "region": "asia-southeast1",
+                "tfid": null,
+                "value": "philippines"
+              },
+              {
+                "aggregate_region": "asia-southeast",
+                "continent": "Asia",
+                "display": "Singapore",
+                "latitude": 1.2901899814605713,
+                "longitude": 103.85198974609375,
+                "region": "asia-southeast1",
+                "tfid": null,
+                "value": "ap-southeast-1"
+              },
+              {
+                "aggregate_region": "south-korea",
+                "continent": "Asia",
+                "display": "South Korea",
+                "latitude": 37.558860778808594,
+                "longitude": 126.99989318847656,
+                "region": "asia-northeast3",
+                "tfid": null,
+                "value": "ap-northeast-2"
+              },
+              {
+                "aggregate_region": "asia-southeast",
+                "continent": "Asia",
+                "display": "Sri Lanka",
+                "latitude": 6.92710018157959,
+                "longitude": 79.86119842529297,
+                "region": "asia-southeast1",
+                "tfid": null,
+                "value": "srilanka"
+              },
+              {
+                "aggregate_region": "taiwan",
+                "continent": "Asia",
+                "display": "Taiwan",
+                "latitude": 25.011930465698242,
+                "longitude": 121.46562194824219,
+                "region": "asia-east1",
+                "tfid": null,
+                "value": "taiwan"
+              },
+              {
+                "aggregate_region": "asia-southeast",
+                "continent": "Asia",
+                "display": "Thailand",
+                "latitude": 13.75337028503418,
+                "longitude": 100.50482940673828,
+                "region": "asia-southeast1",
+                "tfid": null,
+                "value": "thailand"
+              },
+              {
+                "aggregate_region": "asia-southeast",
+                "continent": "Asia",
+                "display": "Vietnam",
+                "latitude": 11.985600471496582,
+                "longitude": 107.75150299072266,
+                "region": "asia-southeast1",
+                "tfid": null,
+                "value": "vietnam"
+              },
+              {
+                "aggregate_region": "asia-northeast",
+                "continent": "Japan",
+                "display": "Japan Central",
+                "latitude": 35.68408966064453,
+                "longitude": 139.80885314941406,
+                "region": "asia-northeast1",
+                "tfid": null,
+                "value": "ap-northeast-1"
+              },
+              {
+                "aggregate_region": "japan-south",
+                "continent": "Japan",
+                "display": "Japan South",
+                "latitude": 35.92369842529297,
+                "longitude": 137.24459838867188,
+                "region": "asia-northeast2",
+                "tfid": null,
+                "value": "japan-south"
+              },
+              {
+                "aggregate_region": "australia-southeast",
+                "continent": "ANZ",
+                "display": "Australia East",
+                "latitude": -24.69379997253418,
+                "longitude": 150.45880126953125,
+                "region": "australia-southeast1",
+                "tfid": null,
+                "value": "australia-east"
+              },
+              {
+                "aggregate_region": "australia-south",
+                "continent": "ANZ",
+                "display": "Australia South",
+                "latitude": -36.69540023803711,
+                "longitude": 145.05259704589844,
+                "region": "australia-southeast2",
+                "tfid": null,
+                "value": "australia-south"
+              },
+              {
+                "aggregate_region": "australia-southeast",
+                "continent": "ANZ",
+                "display": "Australia Southeast",
+                "latitude": -32.63460159301758,
+                "longitude": 148.8175048828125,
+                "region": "australia-southeast1",
+                "tfid": null,
+                "value": "ap-southeast-2"
+              },
+              {
+                "aggregate_region": "new-zealand",
+                "continent": "ANZ",
+                "display": "New Zealand",
+                "latitude": -37.85232162475586,
+                "longitude": 174.76388549804688,
+                "region": "ap-southeast-6",
+                "tfid": null,
+                "value": "new-zealand"
+              }
+            ],
+            "device": null,
+            "folder": null,
+            "limit": null,
+            "name": null,
+            "offset": null,
+            "snippet": null,
+            "tfid": ":::::",
+            "total": 114
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "scm_bandwidth_allocation",
+      "name": "allocation",
+      "provider": "provider[\"registry.terraform.io/paloaltonetworks/scm\"]",
+      "instances": [
+        {
+          "index_key": "asia-south",
+          "schema_version": 0,
+          "attributes": {
+            "allocated_bandwidth": 50,
+            "name": "asia-south",
+            "qos": null,
+            "spn_name_list": [
+              "asia-south-kudzu"
+            ],
+            "tfid": "bandwidth_allocation_asia-south"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "data.scm_location_list.all"
+          ],
+          "create_before_destroy": true
+        },
+        {
+          "index_key": "australia-southeast",
+          "schema_version": 0,
+          "attributes": {
+            "allocated_bandwidth": 50,
+            "name": "australia-southeast",
+            "qos": null,
+            "spn_name_list": [
+              "australia-southeast-edelweiss"
+            ],
+            "tfid": "bandwidth_allocation_australia-southeast"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "data.scm_location_list.all"
+          ],
+          "create_before_destroy": true
+        },
+        {
+          "index_key": "canada-central-toronto",
+          "schema_version": 0,
+          "attributes": {
+            "allocated_bandwidth": 50,
+            "name": "canada-central-toronto",
+            "qos": null,
+            "spn_name_list": [
+              "canada-central-toronto-bearberry"
+            ],
+            "tfid": "bandwidth_allocation_canada-central-toronto"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "data.scm_location_list.all"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "scm_ike_crypto_profile",
+      "name": "ike",
+      "provider": "provider[\"registry.terraform.io/paloaltonetworks/scm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "authentication_multiple": 0,
+            "device": null,
+            "dh_group": [
+              "group20"
+            ],
+            "encryption": [
+              "aes-256-cbc"
+            ],
+            "folder": "Shared",
+            "hash": [
+              "sha384"
+            ],
+            "id": "908f0a6b-95fc-43e6-892c-36525841bc30",
+            "lifetime": {
+              "days": null,
+              "hours": null,
+              "minutes": null,
+              "seconds": 28800
+            },
+            "name": "TF_prod-ike-crypto-profile",
+            "snippet": null,
+            "tfid": "Shared:::908f0a6b-95fc-43e6-892c-36525841bc30"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "scm_ike_gateway",
+      "name": "rn_primary_gw",
+      "provider": "provider[\"registry.terraform.io/paloaltonetworks/scm\"]",
+      "instances": [
+        {
+          "index_key": "Cust2-RN1-single-tunnel-BGP",
+          "schema_version": 0,
+          "attributes": {
+            "authentication": {
+              "certificate": null,
+              "pre_shared_key": {
+                "key": "replace-with-yours"
+              }
+            },
+            "device": null,
+            "encrypted_values": {
+              "authentication_pre_shared_key_key_encrypted": "-AQ==m+cZn9xREd7pzhIlT6wXINhaJug=vTJ+OmIZ9rmEOHTRvXJpeFCmANU0Mn4mI764pvyR/qA=",
+              "authentication_pre_shared_key_key_plaintext": "replace-with-yours"
+            },
+            "folder": "Remote Networks",
+            "id": "a553da7b-10ef-49d8-97c3-cd31c277da80",
+            "local_address": {
+              "interface": "vlan",
+              "ip": null
+            },
+            "local_id": null,
+            "name": "TF_ike_Gateway_Cust2-RN1",
+            "peer_address": {
+              "dynamic": {},
+              "fqdn": null,
+              "ip": null
+            },
+            "peer_id": {
+              "id": "Cust2-RN1@gsat.pro",
+              "type": "ufqdn"
+            },
+            "protocol": {
+              "ikev1": null,
+              "ikev2": {
+                "dpd": {
+                  "enable": true
+                },
+                "ike_crypto_profile": "TF_prod-ike-crypto-profile"
+              },
+              "version": "ikev2"
+            },
+            "protocol_common": {
+              "fragmentation": {
+                "enable": false
+              },
+              "nat_traversal": {
+                "enable": true
+              },
+              "passive_mode": true
+            },
+            "snippet": null,
+            "tfid": "Remote Networks:::a553da7b-10ef-49d8-97c3-cd31c277da80"
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "authentication"
+              },
+              {
+                "type": "get_attr",
+                "value": "pre_shared_key"
+              },
+              {
+                "type": "get_attr",
+                "value": "key"
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "encrypted_values"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "scm_ike_crypto_profile.ike"
+          ],
+          "create_before_destroy": true
+        },
+        {
+          "index_key": "Cust2-RN2-single-tunnel-static",
+          "schema_version": 0,
+          "attributes": {
+            "authentication": {
+              "certificate": null,
+              "pre_shared_key": {
+                "key": "replace-with-yours"
+              }
+            },
+            "device": null,
+            "encrypted_values": {
+              "authentication_pre_shared_key_key_encrypted": "-AQ==m+cZn9xREd7pzhIlT6wXINhaJug=vTJ+OmIZ9rmEOHTRvXJpeFCmANU0Mn4mI764pvyR/qA=",
+              "authentication_pre_shared_key_key_plaintext": "replace-with-yours"
+            },
+            "folder": "Remote Networks",
+            "id": "bc22b534-badd-481b-8970-0fa41096322b",
+            "local_address": {
+              "interface": "vlan",
+              "ip": null
+            },
+            "local_id": null,
+            "name": "TF_ike_Gateway_Cust2-RN2",
+            "peer_address": {
+              "dynamic": {},
+              "fqdn": null,
+              "ip": null
+            },
+            "peer_id": {
+              "id": "Cust2-RN2@gsat.pro",
+              "type": "ufqdn"
+            },
+            "protocol": {
+              "ikev1": null,
+              "ikev2": {
+                "dpd": {
+                  "enable": true
+                },
+                "ike_crypto_profile": "TF_prod-ike-crypto-profile"
+              },
+              "version": "ikev2"
+            },
+            "protocol_common": {
+              "fragmentation": {
+                "enable": false
+              },
+              "nat_traversal": {
+                "enable": true
+              },
+              "passive_mode": true
+            },
+            "snippet": null,
+            "tfid": "Remote Networks:::bc22b534-badd-481b-8970-0fa41096322b"
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "authentication"
+              },
+              {
+                "type": "get_attr",
+                "value": "pre_shared_key"
+              },
+              {
+                "type": "get_attr",
+                "value": "key"
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "encrypted_values"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "scm_ike_crypto_profile.ike"
+          ],
+          "create_before_destroy": true
+        },
+        {
+          "index_key": "Cust2-RN3-dual-tunnel-BGP",
+          "schema_version": 0,
+          "attributes": {
+            "authentication": {
+              "certificate": null,
+              "pre_shared_key": {
+                "key": "-AQ==cRDtpNCeBiql5KOQsKVyrA0sAiA=0131GnEFDCtKt7/WuBN22Q=="
+              }
+            },
+            "device": null,
+            "encrypted_values": {
+              "authentication_pre_shared_key_key_encrypted": "-AQ==dyde0GzM/gxWsqOSDam1m97YD+Q=nwjQBx/504SePwpTkfS79sQ1pGbD+0kjRBKHtHnQLnOBVTLj+unPnQhnMrHQMWpzzHcnsVTDgvb9FTSRRWcDXw==",
+              "authentication_pre_shared_key_key_plaintext": "-AQ==cRDtpNCeBiql5KOQsKVyrA0sAiA=0131GnEFDCtKt7/WuBN22Q=="
+            },
+            "folder": "Remote Networks",
+            "id": "677bc6af-aecf-49f8-8d89-254a36cb6d77",
+            "local_address": {
+              "interface": "vlan",
+              "ip": null
+            },
+            "local_id": {
+              "id": "rn3-primary-rocks",
+              "type": "fqdn"
+            },
+            "name": "TF_ike_Gateway_RN3_Primary",
+            "peer_address": {
+              "dynamic": null,
+              "fqdn": null,
+              "ip": "9.8.7.6"
+            },
+            "peer_id": {
+              "id": "9.8.7.6",
+              "type": "ipaddr"
+            },
+            "protocol": {
+              "ikev1": null,
+              "ikev2": {
+                "dpd": {
+                  "enable": true
+                },
+                "ike_crypto_profile": "TF_prod-ike-crypto-profile"
+              },
+              "version": "ikev2"
+            },
+            "protocol_common": {
+              "fragmentation": {
+                "enable": false
+              },
+              "nat_traversal": {
+                "enable": true
+              },
+              "passive_mode": true
+            },
+            "snippet": null,
+            "tfid": "Remote Networks:::677bc6af-aecf-49f8-8d89-254a36cb6d77"
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "authentication"
+              },
+              {
+                "type": "get_attr",
+                "value": "pre_shared_key"
+              },
+              {
+                "type": "get_attr",
+                "value": "key"
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "encrypted_values"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "scm_ike_crypto_profile.ike"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "scm_ike_gateway",
+      "name": "rn_secondary_gw",
+      "provider": "provider[\"registry.terraform.io/paloaltonetworks/scm\"]",
+      "instances": [
+        {
+          "index_key": "Cust2-RN3-dual-tunnel-BGP",
+          "schema_version": 0,
+          "attributes": {
+            "authentication": {
+              "certificate": null,
+              "pre_shared_key": {
+                "key": "-AQ==5i01FiUuVfdK9TZuXTCdieT68fI=Khfpt2jBQuxYqRn+h664fQ=="
+              }
+            },
+            "device": null,
+            "encrypted_values": {
+              "authentication_pre_shared_key_key_encrypted": "-AQ==hBTA2VGCaHDdt8uXqNT3Sbc88j4=PhjyonAeQtt+PcVx9VYw3YEES0uP4xeCxBSOLy3GHcECHi7Ium3bcg5FEqQ9K5t5SccPjlI86+0nK0NJK/3+Rg==",
+              "authentication_pre_shared_key_key_plaintext": "-AQ==5i01FiUuVfdK9TZuXTCdieT68fI=Khfpt2jBQuxYqRn+h664fQ=="
+            },
+            "folder": "Remote Networks",
+            "id": "4c5a7039-f890-404b-8d75-d8ec3c2e4013",
+            "local_address": {
+              "interface": "vlan",
+              "ip": null
+            },
+            "local_id": {
+              "id": "rn3-secondary-power",
+              "type": "fqdn"
+            },
+            "name": "TF_ike_Gateway_RN3_Secondary",
+            "peer_address": {
+              "dynamic": null,
+              "fqdn": null,
+              "ip": "7.7.7.7"
+            },
+            "peer_id": {
+              "id": "7.7.7.7",
+              "type": "ipaddr"
+            },
+            "protocol": {
+              "ikev1": null,
+              "ikev2": {
+                "dpd": {
+                  "enable": true
+                },
+                "ike_crypto_profile": "TF_prod-ike-crypto-profile"
+              },
+              "version": "ikev2"
+            },
+            "protocol_common": {
+              "fragmentation": {
+                "enable": false
+              },
+              "nat_traversal": {
+                "enable": true
+              },
+              "passive_mode": true
+            },
+            "snippet": null,
+            "tfid": "Remote Networks:::4c5a7039-f890-404b-8d75-d8ec3c2e4013"
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "authentication"
+              },
+              {
+                "type": "get_attr",
+                "value": "pre_shared_key"
+              },
+              {
+                "type": "get_attr",
+                "value": "key"
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "encrypted_values"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "scm_ike_crypto_profile.ike"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "scm_ike_gateway",
+      "name": "sc_primary_gw",
+      "provider": "provider[\"registry.terraform.io/paloaltonetworks/scm\"]",
+      "instances": [
+        {
+          "index_key": "Cust2-SC-dual-tunnel-BGP",
+          "schema_version": 0,
+          "attributes": {
+            "authentication": {
+              "certificate": null,
+              "pre_shared_key": {
+                "key": "replace-with-yours"
+              }
+            },
+            "device": null,
+            "encrypted_values": {
+              "authentication_pre_shared_key_key_encrypted": "-AQ==m+cZn9xREd7pzhIlT6wXINhaJug=vTJ+OmIZ9rmEOHTRvXJpeFCmANU0Mn4mI764pvyR/qA=",
+              "authentication_pre_shared_key_key_plaintext": "replace-with-yours"
+            },
+            "folder": "Service Connections",
+            "id": "fde6ec55-0aaa-4186-8937-af430c9bea39",
+            "local_address": {
+              "interface": "vlan",
+              "ip": null
+            },
+            "local_id": {
+              "id": "sase-rocks",
+              "type": "fqdn"
+            },
+            "name": "TF_ike_Gateway_1783082716072",
+            "peer_address": {
+              "dynamic": null,
+              "fqdn": null,
+              "ip": "1.2.3.4"
+            },
+            "peer_id": {
+              "id": "1.2.3.4",
+              "type": "ipaddr"
+            },
+            "protocol": {
+              "ikev1": null,
+              "ikev2": {
+                "dpd": {
+                  "enable": true
+                },
+                "ike_crypto_profile": "Others-IKE-Crypto-Default"
+              },
+              "version": "ikev2"
+            },
+            "protocol_common": {
+              "fragmentation": {
+                "enable": false
+              },
+              "nat_traversal": {
+                "enable": true
+              },
+              "passive_mode": true
+            },
+            "snippet": null,
+            "tfid": "Service Connections:::fde6ec55-0aaa-4186-8937-af430c9bea39"
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "authentication"
+              },
+              {
+                "type": "get_attr",
+                "value": "pre_shared_key"
+              },
+              {
+                "type": "get_attr",
+                "value": "key"
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "encrypted_values"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "scm_ike_crypto_profile.ike"
+          ],
+          "create_before_destroy": true
+        },
+        {
+          "index_key": "Cust2-SC-single-tunnel-BGP",
+          "schema_version": 0,
+          "attributes": {
+            "authentication": {
+              "certificate": null,
+              "pre_shared_key": {
+                "key": "replace-with-yours"
+              }
+            },
+            "device": null,
+            "encrypted_values": {
+              "authentication_pre_shared_key_key_encrypted": "-AQ==m+cZn9xREd7pzhIlT6wXINhaJug=vTJ+OmIZ9rmEOHTRvXJpeFCmANU0Mn4mI764pvyR/qA=",
+              "authentication_pre_shared_key_key_plaintext": "replace-with-yours"
+            },
+            "folder": "Service Connections",
+            "id": "b0e9a3e1-cc3d-473c-b3cc-c609d3e42f21",
+            "local_address": {
+              "interface": "vlan",
+              "ip": null
+            },
+            "local_id": null,
+            "name": "TF_ike_Gateway_Cust2-SC",
+            "peer_address": {
+              "dynamic": {},
+              "fqdn": null,
+              "ip": null
+            },
+            "peer_id": {
+              "id": "Cust2-SC1@gsat.pro",
+              "type": "ufqdn"
+            },
+            "protocol": {
+              "ikev1": null,
+              "ikev2": {
+                "dpd": {
+                  "enable": true
+                },
+                "ike_crypto_profile": "TF_prod-ike-crypto-profile"
+              },
+              "version": "ikev2"
+            },
+            "protocol_common": {
+              "fragmentation": {
+                "enable": false
+              },
+              "nat_traversal": {
+                "enable": true
+              },
+              "passive_mode": true
+            },
+            "snippet": null,
+            "tfid": "Service Connections:::b0e9a3e1-cc3d-473c-b3cc-c609d3e42f21"
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "authentication"
+              },
+              {
+                "type": "get_attr",
+                "value": "pre_shared_key"
+              },
+              {
+                "type": "get_attr",
+                "value": "key"
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "encrypted_values"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "scm_ike_crypto_profile.ike"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "scm_ike_gateway",
+      "name": "sc_secondary_gw",
+      "provider": "provider[\"registry.terraform.io/paloaltonetworks/scm\"]",
+      "instances": [
+        {
+          "index_key": "Cust2-SC-dual-tunnel-BGP",
+          "schema_version": 0,
+          "attributes": {
+            "authentication": {
+              "certificate": null,
+              "pre_shared_key": {
+                "key": "replace-with-yours"
+              }
+            },
+            "device": null,
+            "encrypted_values": {
+              "authentication_pre_shared_key_key_encrypted": "-AQ==m+cZn9xREd7pzhIlT6wXINhaJug=vTJ+OmIZ9rmEOHTRvXJpeFCmANU0Mn4mI764pvyR/qA=",
+              "authentication_pre_shared_key_key_plaintext": "replace-with-yours"
+            },
+            "folder": "Service Connections",
+            "id": "3e4fb06b-d91c-4231-a197-702cec6069a4",
+            "local_address": {
+              "interface": "vlan",
+              "ip": null
+            },
+            "local_id": {
+              "id": "sase-power",
+              "type": "fqdn"
+            },
+            "name": "TF_ike_Gateway_1783082845194",
+            "peer_address": {
+              "dynamic": null,
+              "fqdn": null,
+              "ip": "4.5.6.7"
+            },
+            "peer_id": {
+              "id": "4.5.6.7",
+              "type": "ipaddr"
+            },
+            "protocol": {
+              "ikev1": null,
+              "ikev2": {
+                "dpd": {
+                  "enable": true
+                },
+                "ike_crypto_profile": "PaloAlto-Networks-IKE-Crypto"
+              },
+              "version": "ikev2"
+            },
+            "protocol_common": {
+              "fragmentation": {
+                "enable": false
+              },
+              "nat_traversal": {
+                "enable": true
+              },
+              "passive_mode": true
+            },
+            "snippet": null,
+            "tfid": "Service Connections:::3e4fb06b-d91c-4231-a197-702cec6069a4"
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "authentication"
+              },
+              {
+                "type": "get_attr",
+                "value": "pre_shared_key"
+              },
+              {
+                "type": "get_attr",
+                "value": "key"
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "encrypted_values"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "scm_ike_crypto_profile.ike"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "scm_ipsec_crypto_profile",
+      "name": "ipsec",
+      "provider": "provider[\"registry.terraform.io/paloaltonetworks/scm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "ah": null,
+            "device": null,
+            "dh_group": "group20",
+            "esp": {
+              "authentication": [
+                "none"
+              ],
+              "encryption": [
+                "aes-256-gcm"
+              ]
+            },
+            "folder": "Shared",
+            "id": "038fb9ab-0605-4944-a6ca-82a89e771a23",
+            "lifesize": null,
+            "lifetime": {
+              "days": null,
+              "hours": null,
+              "minutes": null,
+              "seconds": 3600
+            },
+            "name": "TF_prod-ipsec-crypto-profile",
+            "snippet": null,
+            "tfid": "Shared:::038fb9ab-0605-4944-a6ca-82a89e771a23"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "scm_ipsec_tunnel",
+      "name": "rn_primary_tunnel",
+      "provider": "provider[\"registry.terraform.io/paloaltonetworks/scm\"]",
+      "instances": [
+        {
+          "index_key": "Cust2-RN1-single-tunnel-BGP",
+          "schema_version": 0,
+          "attributes": {
+            "anti_replay": true,
+            "auto_key": {
+              "ike_gateway": [
+                {
+                  "name": "TF_ike_Gateway_Cust2-RN1"
+                }
+              ],
+              "ipsec_crypto_profile": "TF_prod-ipsec-crypto-profile",
+              "proxy_id": null,
+              "proxy_id_v6": null
+            },
+            "copy_tos": false,
+            "device": null,
+            "enable_gre_encapsulation": false,
+            "folder": "Remote Networks",
+            "id": "52bbdbd5-6ef8-4a3d-a0a0-17a379a4fa35",
+            "name": "TF_Cust2-RN1-tunnel",
+            "snippet": null,
+            "tfid": "Remote Networks:::52bbdbd5-6ef8-4a3d-a0a0-17a379a4fa35",
+            "tunnel_interface": "tunnel",
+            "tunnel_monitor": {
+              "destination_ip": "10.1.1.1",
+              "enable": true,
+              "proxy_id": null
+            }
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "scm_ike_crypto_profile.ike",
+            "scm_ike_gateway.rn_primary_gw",
+            "scm_ipsec_crypto_profile.ipsec"
+          ],
+          "create_before_destroy": true
+        },
+        {
+          "index_key": "Cust2-RN2-single-tunnel-static",
+          "schema_version": 0,
+          "attributes": {
+            "anti_replay": true,
+            "auto_key": {
+              "ike_gateway": [
+                {
+                  "name": "TF_ike_Gateway_Cust2-RN2"
+                }
+              ],
+              "ipsec_crypto_profile": "TF_prod-ipsec-crypto-profile",
+              "proxy_id": null,
+              "proxy_id_v6": null
+            },
+            "copy_tos": false,
+            "device": null,
+            "enable_gre_encapsulation": false,
+            "folder": "Remote Networks",
+            "id": "41d43e7f-23b5-46aa-9f0a-cb748d24a4a0",
+            "name": "TF_Cust2-RN2-tunnel",
+            "snippet": null,
+            "tfid": "Remote Networks:::41d43e7f-23b5-46aa-9f0a-cb748d24a4a0",
+            "tunnel_interface": "tunnel",
+            "tunnel_monitor": {
+              "destination_ip": "192.168.255.249",
+              "enable": true,
+              "proxy_id": null
+            }
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "scm_ike_crypto_profile.ike",
+            "scm_ike_gateway.rn_primary_gw",
+            "scm_ipsec_crypto_profile.ipsec"
+          ],
+          "create_before_destroy": true
+        },
+        {
+          "index_key": "Cust2-RN3-dual-tunnel-BGP",
+          "schema_version": 0,
+          "attributes": {
+            "anti_replay": true,
+            "auto_key": {
+              "ike_gateway": [
+                {
+                  "name": "TF_ike_Gateway_RN3_Primary"
+                }
+              ],
+              "ipsec_crypto_profile": "TF_prod-ipsec-crypto-profile",
+              "proxy_id": null,
+              "proxy_id_v6": null
+            },
+            "copy_tos": false,
+            "device": null,
+            "enable_gre_encapsulation": false,
+            "folder": "Remote Networks",
+            "id": "515d4006-a195-4c6e-b672-acbe14251ab0",
+            "name": "TF_RN3-Primary-Tunnel",
+            "snippet": null,
+            "tfid": "Remote Networks:::515d4006-a195-4c6e-b672-acbe14251ab0",
+            "tunnel_interface": "tunnel",
+            "tunnel_monitor": {
+              "destination_ip": "10.200.0.250",
+              "enable": true,
+              "proxy_id": null
+            }
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "scm_ike_crypto_profile.ike",
+            "scm_ike_gateway.rn_primary_gw",
+            "scm_ipsec_crypto_profile.ipsec"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "scm_ipsec_tunnel",
+      "name": "rn_secondary_tunnel",
+      "provider": "provider[\"registry.terraform.io/paloaltonetworks/scm\"]",
+      "instances": [
+        {
+          "index_key": "Cust2-RN3-dual-tunnel-BGP",
+          "schema_version": 0,
+          "attributes": {
+            "anti_replay": true,
+            "auto_key": {
+              "ike_gateway": [
+                {
+                  "name": "TF_ike_Gateway_RN3_Secondary"
+                }
+              ],
+              "ipsec_crypto_profile": "TF_prod-ipsec-crypto-profile",
+              "proxy_id": null,
+              "proxy_id_v6": null
+            },
+            "copy_tos": false,
+            "device": null,
+            "enable_gre_encapsulation": false,
+            "folder": "Remote Networks",
+            "id": "d992b8ed-ce6e-42ad-bdf7-9cc0235ce041",
+            "name": "TF_RN3-Secondary-Tunnel",
+            "snippet": null,
+            "tfid": "Remote Networks:::d992b8ed-ce6e-42ad-bdf7-9cc0235ce041",
+            "tunnel_interface": "tunnel",
+            "tunnel_monitor": {
+              "destination_ip": "10.200.0.251",
+              "enable": true,
+              "proxy_id": null
+            }
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "scm_ike_crypto_profile.ike",
+            "scm_ike_gateway.rn_secondary_gw",
+            "scm_ipsec_crypto_profile.ipsec"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "scm_ipsec_tunnel",
+      "name": "sc_primary_tunnel",
+      "provider": "provider[\"registry.terraform.io/paloaltonetworks/scm\"]",
+      "instances": [
+        {
+          "index_key": "Cust2-SC-dual-tunnel-BGP",
+          "schema_version": 0,
+          "attributes": {
+            "anti_replay": true,
+            "auto_key": {
+              "ike_gateway": [
+                {
+                  "name": "TF_ike_Gateway_1783082716072"
+                }
+              ],
+              "ipsec_crypto_profile": "Others-IPSec-Crypto-Default",
+              "proxy_id": null,
+              "proxy_id_v6": null
+            },
+            "copy_tos": false,
+            "device": null,
+            "enable_gre_encapsulation": false,
+            "folder": "Service Connections",
+            "id": "f3d423da-1825-4647-9659-38c22fba5324",
+            "name": "TF_Primary",
+            "snippet": null,
+            "tfid": "Service Connections:::f3d423da-1825-4647-9659-38c22fba5324",
+            "tunnel_interface": "tunnel",
+            "tunnel_monitor": {
+              "destination_ip": "10.0.0.250",
+              "enable": true,
+              "proxy_id": null
+            }
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "scm_ike_crypto_profile.ike",
+            "scm_ike_gateway.sc_primary_gw",
+            "scm_ipsec_crypto_profile.ipsec"
+          ],
+          "create_before_destroy": true
+        },
+        {
+          "index_key": "Cust2-SC-single-tunnel-BGP",
+          "schema_version": 0,
+          "attributes": {
+            "anti_replay": true,
+            "auto_key": {
+              "ike_gateway": [
+                {
+                  "name": "TF_ike_Gateway_Cust2-SC"
+                }
+              ],
+              "ipsec_crypto_profile": "TF_prod-ipsec-crypto-profile",
+              "proxy_id": null,
+              "proxy_id_v6": null
+            },
+            "copy_tos": false,
+            "device": null,
+            "enable_gre_encapsulation": false,
+            "folder": "Service Connections",
+            "id": "83173dbe-5336-41d8-9f38-90121857b023",
+            "name": "TF_Cust2-SC1",
+            "snippet": null,
+            "tfid": "Service Connections:::83173dbe-5336-41d8-9f38-90121857b023",
+            "tunnel_interface": "tunnel",
+            "tunnel_monitor": {
+              "destination_ip": "192.168.255.240",
+              "enable": true,
+              "proxy_id": null
+            }
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "scm_ike_crypto_profile.ike",
+            "scm_ike_gateway.sc_primary_gw",
+            "scm_ipsec_crypto_profile.ipsec"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "scm_ipsec_tunnel",
+      "name": "sc_secondary_tunnel",
+      "provider": "provider[\"registry.terraform.io/paloaltonetworks/scm\"]",
+      "instances": [
+        {
+          "index_key": "Cust2-SC-dual-tunnel-BGP",
+          "schema_version": 0,
+          "attributes": {
+            "anti_replay": true,
+            "auto_key": {
+              "ike_gateway": [
+                {
+                  "name": "TF_ike_Gateway_1783082845194"
+                }
+              ],
+              "ipsec_crypto_profile": "PaloAlto-Networks-IPSec-Crypto",
+              "proxy_id": null,
+              "proxy_id_v6": null
+            },
+            "copy_tos": false,
+            "device": null,
+            "enable_gre_encapsulation": false,
+            "folder": "Service Connections",
+            "id": "529a6567-4f54-4a4f-816e-6ad45fb9aca3",
+            "name": "TF_Secondary",
+            "snippet": null,
+            "tfid": "Service Connections:::529a6567-4f54-4a4f-816e-6ad45fb9aca3",
+            "tunnel_interface": "tunnel",
+            "tunnel_monitor": {
+              "destination_ip": "10.0.0.251",
+              "enable": true,
+              "proxy_id": null
+            }
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "scm_ike_crypto_profile.ike",
+            "scm_ike_gateway.sc_secondary_gw",
+            "scm_ipsec_crypto_profile.ipsec"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "scm_remote_network",
+      "name": "rn",
+      "provider": "provider[\"registry.terraform.io/paloaltonetworks/scm\"]",
+      "instances": [
+        {
+          "index_key": "Cust2-RN1-single-tunnel-BGP",
+          "schema_version": 0,
+          "attributes": {
+            "ecmp_load_balancing": "disable",
+            "ecmp_tunnels": null,
+            "encrypted_values": null,
+            "folder": "Remote Networks",
+            "id": "0bbfbc0b-26d7-4f41-b178-09c62174dc71",
+            "ipsec_tunnel": "TF_Cust2-RN1-tunnel",
+            "license_type": "FWAAS-AGGREGATE",
+            "name": "TF_Cust2-RN1-single-tunnel-BGP",
+            "protocol": {
+              "bgp": {
+                "do_not_export_routes": true,
+                "enable": true,
+                "local_ip_address": "10.1.1.2",
+                "originate_default_route": true,
+                "peer_as": "65530",
+                "peer_ip_address": "10.1.1.1",
+                "peering_type": null,
+                "secret": null,
+                "summarize_mobile_user_routes": null
+              },
+              "bgp_peer": null
+            },
+            "region": "ap-south-1",
+            "secondary_ipsec_tunnel": null,
+            "spn_name": "asia-south-kudzu",
+            "subnets": [
+              "192.168.255.254/32",
+              "10.254.254.254/32"
+            ],
+            "tfid": "Remote Networks:::0bbfbc0b-26d7-4f41-b178-09c62174dc71"
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "encrypted_values"
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "protocol"
+              },
+              {
+                "type": "get_attr",
+                "value": "bgp"
+              },
+              {
+                "type": "get_attr",
+                "value": "secret"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "data.scm_location_list.all",
+            "scm_bandwidth_allocation.allocation",
+            "scm_ike_crypto_profile.ike",
+            "scm_ike_gateway.rn_primary_gw",
+            "scm_ike_gateway.rn_secondary_gw",
+            "scm_ipsec_crypto_profile.ipsec",
+            "scm_ipsec_tunnel.rn_primary_tunnel",
+            "scm_ipsec_tunnel.rn_secondary_tunnel"
+          ],
+          "create_before_destroy": true
+        },
+        {
+          "index_key": "Cust2-RN2-single-tunnel-static",
+          "schema_version": 0,
+          "attributes": {
+            "ecmp_load_balancing": "disable",
+            "ecmp_tunnels": null,
+            "encrypted_values": null,
+            "folder": "Remote Networks",
+            "id": "38f3946b-5930-4358-95b8-f85ef08ffa96",
+            "ipsec_tunnel": "TF_Cust2-RN2-tunnel",
+            "license_type": "FWAAS-AGGREGATE",
+            "name": "TF_Cust2-RN2-single-tunnel-static",
+            "protocol": null,
+            "region": "ap-southeast-2",
+            "secondary_ipsec_tunnel": null,
+            "spn_name": "australia-southeast-edelweiss",
+            "subnets": [
+              "172.31.0.96/27"
+            ],
+            "tfid": "Remote Networks:::38f3946b-5930-4358-95b8-f85ef08ffa96"
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "encrypted_values"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "data.scm_location_list.all",
+            "scm_bandwidth_allocation.allocation",
+            "scm_ike_crypto_profile.ike",
+            "scm_ike_gateway.rn_primary_gw",
+            "scm_ike_gateway.rn_secondary_gw",
+            "scm_ipsec_crypto_profile.ipsec",
+            "scm_ipsec_tunnel.rn_primary_tunnel",
+            "scm_ipsec_tunnel.rn_secondary_tunnel"
+          ],
+          "create_before_destroy": true
+        },
+        {
+          "index_key": "Cust2-RN3-dual-tunnel-BGP",
+          "schema_version": 0,
+          "attributes": {
+            "ecmp_load_balancing": "disable",
+            "ecmp_tunnels": null,
+            "encrypted_values": null,
+            "folder": "Remote Networks",
+            "id": "592bf800-f7d2-4046-810e-58f0dbb2d57f",
+            "ipsec_tunnel": "TF_RN3-Primary-Tunnel",
+            "license_type": "FWAAS-AGGREGATE",
+            "name": "TF_Cust2-RN3-dual-tunnel-BGP",
+            "protocol": {
+              "bgp": {
+                "do_not_export_routes": false,
+                "enable": true,
+                "local_ip_address": "10.200.0.1",
+                "originate_default_route": true,
+                "peer_as": "64555",
+                "peer_ip_address": "10.200.0.250",
+                "peering_type": null,
+                "secret": null,
+                "summarize_mobile_user_routes": null
+              },
+              "bgp_peer": {
+                "local_ip_address": "10.200.0.2",
+                "peer_ip_address": "10.200.0.251",
+                "same_as_primary": false,
+                "secret": null
+              }
+            },
+            "region": "canada-central",
+            "secondary_ipsec_tunnel": "TF_RN3-Secondary-Tunnel",
+            "spn_name": "canada-central-toronto-bearberry",
+            "subnets": [
+              "10.200.0.0/24"
+            ],
+            "tfid": "Remote Networks:::592bf800-f7d2-4046-810e-58f0dbb2d57f"
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "encrypted_values"
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "protocol"
+              },
+              {
+                "type": "get_attr",
+                "value": "bgp"
+              },
+              {
+                "type": "get_attr",
+                "value": "secret"
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "protocol"
+              },
+              {
+                "type": "get_attr",
+                "value": "bgp_peer"
+              },
+              {
+                "type": "get_attr",
+                "value": "secret"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "data.scm_location_list.all",
+            "scm_bandwidth_allocation.allocation",
+            "scm_ike_crypto_profile.ike",
+            "scm_ike_gateway.rn_primary_gw",
+            "scm_ike_gateway.rn_secondary_gw",
+            "scm_ipsec_crypto_profile.ipsec",
+            "scm_ipsec_tunnel.rn_primary_tunnel",
+            "scm_ipsec_tunnel.rn_secondary_tunnel"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "scm_security_rule",
+      "name": "secure_internet_access",
+      "provider": "provider[\"registry.terraform.io/paloaltonetworks/scm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "action": "allow",
+            "allow_url_category": null,
+            "allow_web_application": null,
+            "application": [
+              "any"
+            ],
+            "block_url_category": null,
+            "block_web_application": null,
+            "category": [
+              "any"
+            ],
+            "default_profile_settings": null,
+            "description": "Secure Internet Access - cust2.  changing description to test config logs. Demo",
+            "destination": [
+              "any"
+            ],
+            "destination_hip": [
+              "any"
+            ],
+            "device": null,
+            "devices": null,
+            "disabled": false,
+            "folder": "Shared",
+            "from": [
+              "trust"
+            ],
+            "id": "f335d9f5-018b-4c0e-98b7-4b1583b41158",
+            "log_end": true,
+            "log_setting": "Cortex Data Lake",
+            "log_settings": null,
+            "log_start": false,
+            "name": "TF_Secure Internet Access - cust2",
+            "negate_destination": null,
+            "negate_source": false,
+            "negate_user": null,
+            "policy_type": "Security",
+            "position": "pre",
+            "profile_setting": {
+              "group": [
+                "best-practice"
+              ]
+            },
+            "relative_position": null,
+            "schedule": null,
+            "security_settings": null,
+            "service": [
+              "any"
+            ],
+            "snippet": null,
+            "source": [
+              "any"
+            ],
+            "source_hip": [
+              "any"
+            ],
+            "source_user": [
+              "any"
+            ],
+            "tag": null,
+            "target_rule": null,
+            "tenant_restrictions": null,
+            "tfid": "Shared:::f335d9f5-018b-4c0e-98b7-4b1583b41158",
+            "to": [
+              "any"
+            ]
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "scm_service_connection",
+      "name": "sc",
+      "provider": "provider[\"registry.terraform.io/paloaltonetworks/scm\"]",
+      "instances": [
+        {
+          "index_key": "Cust2-SC-dual-tunnel-BGP",
+          "status": "tainted",
+          "schema_version": 0,
+          "attributes": {
+            "backup_sc": null,
+            "encrypted_values": null,
+            "folder": null,
+            "id": "7563dcea-5ac0-4520-bc42-f830cf89d512",
+            "ipsec_tunnel": "TF_Primary",
+            "name": "TF_Cust2-SC-dual-tunnel-BGP",
+            "nat_pool": null,
+            "no_export_community": null,
+            "onboarding_type": "classic",
+            "protocol": {
+              "bgp": {
+                "do_not_export_routes": null,
+                "enable": true,
+                "fast_failover": null,
+                "local_ip_address": "10.0.0.1",
+                "originate_default_route": null,
+                "peer_as": "64555",
+                "peer_ip_address": "10.0.0.250",
+                "secret": null,
+                "summarize_mobile_user_routes": null
+              },
+              "bgp_peer": null
+            },
+            "qos": null,
+            "region": "canada-central",
+            "region_tag": "PA-G",
+            "secondary_ipsec_tunnel": "TF_Secondary",
+            "source_nat": null,
+            "subnets": [
+              "10.0.0.0/24"
+            ],
+            "tfid": ":::7563dcea-5ac0-4520-bc42-f830cf89d512"
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "encrypted_values"
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "protocol"
+              },
+              {
+                "type": "get_attr",
+                "value": "bgp"
+              },
+              {
+                "type": "get_attr",
+                "value": "secret"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "data.scm_location_list.all",
+            "scm_ike_crypto_profile.ike",
+            "scm_ike_gateway.sc_primary_gw",
+            "scm_ike_gateway.sc_secondary_gw",
+            "scm_ipsec_crypto_profile.ipsec",
+            "scm_ipsec_tunnel.sc_primary_tunnel",
+            "scm_ipsec_tunnel.sc_secondary_tunnel"
+          ]
+        },
+        {
+          "index_key": "Cust2-SC-single-tunnel-BGP",
+          "schema_version": 0,
+          "attributes": {
+            "backup_sc": null,
+            "encrypted_values": null,
+            "folder": null,
+            "id": "8621cf7b-1c78-45ab-afbf-42c446c06cb1",
+            "ipsec_tunnel": "TF_Cust2-SC1",
+            "name": "TF_Cust2-SC-single-tunnel-BGP",
+            "nat_pool": null,
+            "no_export_community": null,
+            "onboarding_type": "classic",
+            "protocol": {
+              "bgp": {
+                "do_not_export_routes": null,
+                "enable": true,
+                "fast_failover": null,
+                "local_ip_address": null,
+                "originate_default_route": null,
+                "peer_as": "65528",
+                "peer_ip_address": "192.168.255.240",
+                "secret": null,
+                "summarize_mobile_user_routes": null
+              },
+              "bgp_peer": null
+            },
+            "qos": null,
+            "region": "france-south",
+            "region_tag": "PA-G",
+            "secondary_ipsec_tunnel": null,
+            "source_nat": null,
+            "subnets": [
+              "192.168.255.240/32"
+            ],
+            "tfid": ":::8621cf7b-1c78-45ab-afbf-42c446c06cb1"
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "encrypted_values"
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "protocol"
+              },
+              {
+                "type": "get_attr",
+                "value": "bgp"
+              },
+              {
+                "type": "get_attr",
+                "value": "secret"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh",
+            "data.scm_location_list.all",
+            "scm_ike_crypto_profile.ike",
+            "scm_ike_gateway.sc_primary_gw",
+            "scm_ike_gateway.sc_secondary_gw",
+            "scm_ipsec_crypto_profile.ipsec",
+            "scm_ipsec_tunnel.sc_primary_tunnel",
+            "scm_ipsec_tunnel.sc_secondary_tunnel"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "ztna_connector_group",
+      "name": "group",
+      "provider": "provider[\"registry.terraform.io/paloaltonetworks/scm\"]",
+      "instances": [
+        {
+          "index_key": "internal-apps-group",
+          "schema_version": 0,
+          "attributes": {
+            "created_time": "2026-10-15T12:26:24.380299127Z",
+            "description": "Primary connector group for internal corporate apps",
+            "is_autoscale": false,
+            "is_ngfw": false,
+            "name": "TF_internal-apps-group",
+            "oid": "533cfde5-a95b-49a1-9ee1-8e2a45fd6ecf",
+            "pba_project_name": null,
+            "preserve_user_id": false,
+            "tfid": ":::533cfde5-a95b-49a1-9ee1-8e2a45fd6ecf",
+            "updated_time": "0001-01-01T00:00:00Z"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "data.external.token_refresh"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "ztna_wildcard",
+      "name": "wildcard_app",
+      "provider": "provider[\"registry.terraform.io/paloaltonetworks/scm\"]",
+      "instances": []
+    }
+  ],
+  "check_results": null
+}

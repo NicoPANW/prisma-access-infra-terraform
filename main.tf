@@ -8,7 +8,11 @@ terraform {
     scm = {
       # Strata Cloud Manager (SCM) provider for managing Prisma Access resources
       source  = "PaloAltoNetworks/scm"
-      version = "~> 1.0"
+      version = "~> 1.0, >= 1.0.13"
+    }
+    ztna = {
+      source  = "PaloAltoNetworks/scm"
+      version = "~> 1.0, >= 1.0.13"
     }
     external = {
       source  = "hashicorp/external"
@@ -37,6 +41,13 @@ provider "scm" {
   auth_file = data.external.token_refresh.result.auth_file
 }
 
+# Configure ZTNA provider endpoint with region header
+provider "ztna" {
+  auth_file     = data.external.token_refresh.result.auth_file
+  ztna_host     = var.ztna_host
+  x_panw_region = var.ztna_x_panw_region
+}
+
 # ==============================================================================
 # CRYPTO PROFILES
 # ==============================================================================
@@ -46,7 +57,7 @@ provider "scm" {
 # Define custom IKE Cryptographic profile using specified high-security settings.
 # These settings govern phase 1 of the IPSec VPN negotiation.
 resource "scm_ike_crypto_profile" "ike" {
-  name       = "TF_${var.ike_crypto_profile.name}"
+  name       = startswith(var.ike_crypto_profile.name, "TF_") ? var.ike_crypto_profile.name : "TF_${var.ike_crypto_profile.name}"
   folder     = var.folder
   dh_group   = var.ike_crypto_profile.dh_group
   encryption = var.ike_crypto_profile.encryption
@@ -59,7 +70,7 @@ resource "scm_ike_crypto_profile" "ike" {
 # custom IPSec cryptographic profile defining Phase 2 parameters
 # of the IPSec VPN negotiation.
 resource "scm_ipsec_crypto_profile" "ipsec" {
-  name     = "TF_${var.ipsec_crypto_profile.name}"
+  name     = startswith(var.ipsec_crypto_profile.name, "TF_") ? var.ipsec_crypto_profile.name : "TF_${var.ipsec_crypto_profile.name}"
   folder   = var.folder
   dh_group = var.ipsec_crypto_profile.dh_group
   esp = {
@@ -78,7 +89,7 @@ resource "scm_ipsec_crypto_profile" "ipsec" {
 # 1. IKE Gateway for Service Connection
 resource "scm_ike_gateway" "sc_primary_gw" {
   for_each = var.service_connections
-  name     = "TF_${each.value.primary_ike_gateway_name}"
+  name     = startswith(each.value.primary_ike_gateway_name, "TF_") ? each.value.primary_ike_gateway_name : "TF_${each.value.primary_ike_gateway_name}"
   folder = "Service Connections"
 
   peer_address = {
@@ -136,7 +147,7 @@ resource "scm_ike_gateway" "sc_primary_gw" {
 # 2. IKE Secondary Gateway for HA Service Connection (instantiated conditionally)
 resource "scm_ike_gateway" "sc_secondary_gw" {
   for_each = { for k, v in var.service_connections : k => v if v.enable_secondary }
-  name     = "TF_${each.value.secondary_ike_gateway_name}"
+  name     = startswith(each.value.secondary_ike_gateway_name, "TF_") ? each.value.secondary_ike_gateway_name : "TF_${each.value.secondary_ike_gateway_name}"
   folder   = "Service Connections"
 
   peer_address = {
@@ -193,7 +204,7 @@ resource "scm_ike_gateway" "sc_secondary_gw" {
 # 2. IPSec Tunnel for Service Connection
 resource "scm_ipsec_tunnel" "sc_primary_tunnel" {
   for_each = var.service_connections
-  name     = "TF_${each.value.primary_ipsec_tunnel_name}"
+  name     = startswith(each.value.primary_ipsec_tunnel_name, "TF_") ? each.value.primary_ipsec_tunnel_name : "TF_${each.value.primary_ipsec_tunnel_name}"
   folder = "Service Connections"
   tunnel_interface         = "tunnel"
   anti_replay              = true
@@ -224,7 +235,7 @@ resource "scm_ipsec_tunnel" "sc_primary_tunnel" {
 # 2. IPSec Secondary Tunnel for HA Service Connection (instantiated conditionally)
 resource "scm_ipsec_tunnel" "sc_secondary_tunnel" {
   for_each = { for k, v in var.service_connections : k => v if v.enable_secondary }
-  name     = "TF_${each.value.secondary_ipsec_tunnel_name}"
+  name     = startswith(each.value.secondary_ipsec_tunnel_name, "TF_") ? each.value.secondary_ipsec_tunnel_name : "TF_${each.value.secondary_ipsec_tunnel_name}"
   folder   = "Service Connections"
   tunnel_interface         = "tunnel"
   anti_replay              = true
@@ -255,7 +266,7 @@ resource "scm_ipsec_tunnel" "sc_secondary_tunnel" {
 # 3. Service Connection Resource itself
 resource "scm_service_connection" "sc" {
   for_each     = var.service_connections
-  name         = "TF_${each.value.name}"
+  name         = startswith(each.value.name, "TF_") ? each.value.name : "TF_${each.value.name}"
   ipsec_tunnel = scm_ipsec_tunnel.sc_primary_tunnel[each.key].name
   secondary_ipsec_tunnel = each.value.enable_secondary ? scm_ipsec_tunnel.sc_secondary_tunnel[each.key].name : null
   region       = try(local.display_to_cloud_region[each.value.region], each.value.region)
@@ -296,7 +307,7 @@ protocol = {
 resource "scm_ike_gateway" "rn_primary_gw" {
   # Create one IKE Gateway per remote network item defined in the tfvars map
   for_each = var.remote_networks
-  name     = "TF_${each.value.primary_ike_gateway_name}"
+  name     = startswith(each.value.primary_ike_gateway_name, "TF_") ? each.value.primary_ike_gateway_name : "TF_${each.value.primary_ike_gateway_name}"
   folder   = "Remote Networks"
 
   peer_address = {
@@ -353,7 +364,7 @@ resource "scm_ike_gateway" "rn_primary_gw" {
 # 1. IKE Secondary Gateway for Remote Networks (instantiated conditionally)
 resource "scm_ike_gateway" "rn_secondary_gw" {
   for_each = { for k, v in var.remote_networks : k => v if v.enable_secondary }
-  name     = "TF_${each.value.secondary_ike_gateway_name}"
+  name     = startswith(each.value.secondary_ike_gateway_name, "TF_") ? each.value.secondary_ike_gateway_name : "TF_${each.value.secondary_ike_gateway_name}"
   folder   = "Remote Networks"
 
   peer_address = {
@@ -410,7 +421,7 @@ resource "scm_ike_gateway" "rn_secondary_gw" {
 resource "scm_ipsec_tunnel" "rn_primary_tunnel" {
   # Build tunnels for each Remote Network linking dynamically to their matching IKE Gateway
   for_each = var.remote_networks
-  name     = "TF_${each.value.primary_ipsec_tunnel_name}"
+  name     = startswith(each.value.primary_ipsec_tunnel_name, "TF_") ? each.value.primary_ipsec_tunnel_name : "TF_${each.value.primary_ipsec_tunnel_name}"
   folder   = "Remote Networks"
   tunnel_interface         = "tunnel"
   anti_replay              = true
@@ -442,7 +453,7 @@ resource "scm_ipsec_tunnel" "rn_primary_tunnel" {
 # 2. IPSec Secondary Tunnel for HA Remote Networks (instantiated conditionally)
 resource "scm_ipsec_tunnel" "rn_secondary_tunnel" {
   for_each = { for k, v in var.remote_networks : k => v if v.enable_secondary }
-  name     = "TF_${each.value.secondary_ipsec_tunnel_name}"
+  name     = startswith(each.value.secondary_ipsec_tunnel_name, "TF_") ? each.value.secondary_ipsec_tunnel_name : "TF_${each.value.secondary_ipsec_tunnel_name}"
   folder   = "Remote Networks"
   tunnel_interface         = "tunnel"
   anti_replay              = true
@@ -490,7 +501,9 @@ locals {
 
   # Group and consolidate Remote Network bandwidth allocations by their translated SCM Bandwidth Region ("aggregate_region")
   region_bandwidth_groups = {
-    for key, val in var.remote_networks : try(local.display_to_bandwidth_region[val.region], val.region) => val.bandwidth...
+    for key, val in var.remote_networks : 
+    try(local.display_to_bandwidth_region[val.region], val.region) => val.bandwidth...
+    if val.bandwidth != null
   }
 
   region_bandwidth_totals = {
@@ -510,17 +523,21 @@ resource "scm_bandwidth_allocation" "allocation" {
 # 4. Remote Network Resources
 resource "scm_remote_network" "rn" {
   for_each     = var.remote_networks
-  name         = "TF_${each.value.name}"
+  name         = startswith(each.value.name, "TF_") ? each.value.name : "TF_${each.value.name}"
   folder       = "Remote Networks"
   ipsec_tunnel = scm_ipsec_tunnel.rn_primary_tunnel[each.key].name
   secondary_ipsec_tunnel = each.value.enable_secondary ? scm_ipsec_tunnel.rn_secondary_tunnel[each.key].name : null
   # Translate the SCM Bandwidth Region to standard cloud provider compute regions for network attachment
   region       = try(local.display_to_cloud_region[each.value.region], each.value.region)
-  # Implicit dependency: Retrieve the dynamically assigned SPN (Service PoP Node) name 
-  # generated by SCM after the bandwidth allocation succeeds.
-  spn_name     = scm_bandwidth_allocation.allocation[try(local.display_to_bandwidth_region[each.value.region], each.value.region)].spn_name_list[0]
-  subnets      = each.value.subnets
-  license_type = each.value.license_type
+  # Implicit dependency: Retrieve SPN if specified or if an aggregate bandwidth allocation exists; null for Site RNs.
+  spn_name     = try(
+    try(each.value.spn_name, null),
+    scm_bandwidth_allocation.allocation[try(local.display_to_bandwidth_region[each.value.region], each.value.region)].spn_name_list[0],
+    null
+  )
+  subnets             = each.value.subnets
+  license_type        = try(each.value.site.license_type, each.value.license_type)
+  ecmp_load_balancing = try(each.value.ecmp_load_balancing, null)
 
   # Apply BGP configuration dynamically. If disabled (like Cust2-RN2), BGP routing settings are omitted (null)
   protocol = each.value.bgp.enable ? {
@@ -546,35 +563,135 @@ resource "scm_remote_network" "rn" {
   }
 }
 
+# 5. Prisma Access Site Resource (Optional wrapper for branch sites)
+resource "scm_site" "site" {
+  for_each = {
+    for k, v in var.remote_networks : k => v if v.site != null
+  }
+
+  name         = startswith(each.value.site.name, "TF_") ? each.value.site.name : "TF_${each.value.site.name}"
+  type         = each.value.site.type
+  license_type = each.value.site.license_type
+
+  city      = each.value.site.city
+  state     = each.value.site.state
+  country   = each.value.site.country
+  zip_code  = each.value.site.zip_code
+  latitude  = each.value.site.latitude
+  longitude = each.value.site.longitude
+
+  members = concat(
+    [
+      {
+        name           = scm_remote_network.rn[each.key].name
+        remote_network = scm_remote_network.rn[each.key].name
+        mode           = coalesce(each.value.site.mode, "active")
+      }
+    ],
+    try(each.value.site.backup_remote_network, null) != null ? [
+      {
+        name           = scm_remote_network.rn[each.value.site.backup_remote_network].name
+        remote_network = scm_remote_network.rn[each.value.site.backup_remote_network].name
+        mode           = "backup"
+      }
+    ] : []
+  )
+
+  qos = each.value.site.qos != null ? {
+    profile = each.value.site.qos.profile
+    cir     = each.value.site.qos.cir
+  } : null
+}
+
 # ==============================================================================
 # SECURITY RULES
 # ==============================================================================
 
-# Pre-security rules allowing trusted network traffic to reach external destinations
-resource "scm_security_rule" "secure_internet_access" {
-  name            = "TF_Secure Internet Access - cust2"
-  folder          = "Shared"
-  position        = "pre"
-  action          = "allow"
-  from            = ["trust"]
-  to              = ["any"]
-  source          = ["any"]
-  destination     = ["any"]
-  source_user     = ["any"]
-  category        = ["any"]
-  application     = ["any"]
-  service         = ["any"]
-  source_hip      = ["any"]
-  destination_hip = ["any"]
-  log_setting     = "Cortex Data Lake"
-  log_end         = true
-  log_start       = false
-  disabled        = false
-  description     = "Secure Internet Access - cust2.  changing description to test config logs. Demo"
-  profile_setting = {
-    # Profile group reference mapped exactly to SCM's lowercase case-sensitive default.
-    group = ["best-practice"]
+# Dynamic security rules defined in terraform.tfvars
+resource "scm_security_rule" "rule" {
+  for_each        = var.security_rules
+  name            = startswith(coalesce(each.value.name, each.key), "TF_") ? coalesce(each.value.name, each.key) : "TF_${coalesce(each.value.name, each.key)}"
+  folder          = coalesce(each.value.folder, var.folder)
+  position        = each.value.position
+  action          = each.value.action
+  from            = each.value.from
+  to              = each.value.to
+  source          = each.value.source
+  destination     = each.value.destination
+  source_user     = each.value.source_user
+  category        = each.value.category
+  application     = each.value.application
+  service         = each.value.service
+  source_hip      = each.value.source_hip
+  destination_hip = each.value.destination_hip
+  log_setting     = each.value.log_setting
+  log_end         = each.value.log_end
+  log_start       = each.value.log_start
+  disabled        = each.value.disabled
+  description     = each.value.description
+  profile_setting = each.value.profile_group != null ? {
+    group = [each.value.profile_group]
+  } : null
+}
+
+# ==============================================================================
+# ZERO TRUST NETWORK ACCESS Connector INFRASTRUCTURE & APPLICATIONS
+# ==============================================================================
+
+# 1. ZTNA Connector Groups
+resource "ztna_connector_group" "group" {
+  for_each         = var.ztna_connector_groups
+  name             = startswith(each.value.name, "TF_") ? each.value.name : "TF_${each.value.name}"
+  description      = each.value.description
+
+  lifecycle {
+    create_before_destroy = true
   }
+}
+
+# 2. ZTNA Connectors
+resource "ztna_connector" "connector" {
+  for_each        = var.ztna_connectors
+  name            = startswith(each.value.name, "TF_") ? each.value.name : "TF_${each.value.name}"
+  group           = try(ztna_connector_group.group[each.value.connector_group].oid, each.value.connector_group)
+  description     = each.value.description
+
+  depends_on = [ztna_connector_group.group]
+}
+
+# 3. ZTNA FQDN Applications
+resource "ztna_fqdn_application" "fqdn_app" {
+  for_each         = var.ztna_fqdn_applications
+  name             = startswith(each.value.name, "TF_") ? each.value.name : "TF_${each.value.name}"
+  description      = each.value.description
+  group            = try(ztna_connector_group.group[each.value.connector_groups[0]].oid, each.value.connector_groups[0])
+  spec = [{
+    fqdn = each.value.fqdn
+  }]
+
+  depends_on = [ztna_connector.connector]
+}
+
+# 4. ZTNA Subnet Applications
+resource "ztna_subnet" "subnet_app" {
+  for_each         = var.ztna_subnets
+  name             = startswith(each.value.name, "TF_") ? each.value.name : "TF_${each.value.name}"
+  description      = each.value.description
+  group            = try(ztna_connector_group.group[each.value.connector_groups[0]].oid, each.value.connector_groups[0])
+  ip_subnets       = join(", ", each.value.subnets)
+
+  depends_on = [ztna_connector.connector]
+}
+
+# 5. ZTNA Wildcard Applications
+resource "ztna_wildcard" "wildcard_app" {
+  for_each         = var.ztna_wildcards
+  name             = startswith(each.value.name, "TF_") ? each.value.name : "TF_${each.value.name}"
+  description      = each.value.description
+  group            = try(ztna_connector_group.group[each.value.connector_groups[0]].oid, each.value.connector_groups[0])
+  fqdn             = each.value.domain
+
+  depends_on = [ztna_connector.connector]
 }
 
 # ==============================================================================
@@ -588,5 +705,16 @@ resource "scm_security_rule" "secure_internet_access" {
 #   terraform apply -invoke=action.scm_application_defaults.bootstrap
 
 action "scm_application_defaults" "bootstrap" {
+  config {}
+}
+
+# Initiate ZTNA tenant onboarding. This action starts the onboarding process
+# for the tenant associated with the authenticated credentials.
+#
+# Usage:
+#   terraform apply -invoke=action.ztna_tenant_start_onboarding.run
+
+action "ztna_tenant_start_onboarding" "run" {
+  provider = ztna
   config {}
 }

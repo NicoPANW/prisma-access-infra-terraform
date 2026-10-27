@@ -10,6 +10,7 @@ import os
 import sys
 import urllib.request
 import urllib.parse
+import urllib.error
 import time
 from datetime import datetime, timedelta, timezone
 
@@ -88,7 +89,7 @@ def needs_refresh(token_data, buffer_seconds=300):
     except Exception:
         return True
 
-def fetch_token(config):
+def fetch_token(config, max_retries=3, backoff=2):
     auth_url = "https://auth.apps.paloaltonetworks.com/oauth2/access_token"
     data = urllib.parse.urlencode({
         "grant_type": "client_credentials",
@@ -104,9 +105,29 @@ def fetch_token(config):
         "Authorization": f"Basic {auth_b64}"
     })
     
-    with urllib.request.urlopen(req) as response:
-        res_data = json.loads(response.read().decode("utf-8"))
-        return res_data["access_token"], res_data.get("expires_in", 900)
+    for attempt in range(1, max_retries + 1):
+        try:
+            with urllib.request.urlopen(req) as response:
+                res_data = json.loads(response.read().decode("utf-8"))
+                return res_data["access_token"], res_data.get("expires_in", 900)
+        except urllib.error.HTTPError as e:
+            err_body = ""
+            try:
+                err_body = e.read().decode("utf-8")
+            except Exception:
+                pass
+
+            # Retry on transient server errors (500, 502, 503, 504)
+            if e.code in (500, 502, 503, 504) and attempt < max_retries:
+                wait = backoff * attempt
+                print(f"Warning: OAuth server returned HTTP {e.code} on attempt {attempt}. Retrying in {wait}s...", file=sys.stderr)
+                time.sleep(wait)
+                continue
+
+            error_msg = f"HTTP Error {e.code}: {e.reason}"
+            if err_body:
+                error_msg += f" - Response: {err_body}"
+            raise RuntimeError(error_msg)
 
 def main():
     if not acquire_lock(LOCK_PATH):

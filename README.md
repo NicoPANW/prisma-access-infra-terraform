@@ -22,7 +22,7 @@ These are the core engineering files that define your infrastructure schemas, va
 
 *   **`main.tf`**: The primary Terraform configuration file. It contains the SCM provider initialization, custom cryptographic profiles, resource declarations for Service Connections and Remote Networks, dynamic bandwidth calculation logic, and security rules.
 *   **`variables.tf`**: Defines the strict type schemas, validations, and structures for your Terraform input variables. It contains no hardcoded values to preserve portability.
-*   **`terraform.tfvars`**: Your environment-specific input values file. This is where you specify the human-readable display region names, subnets, PSKs, and bandwidth parameters for your deployment.
+*   **`terraform.tfvars`**: Your environment-specific input values file. This is where you specify the human-readable display region names, subnets, PSKs, and bandwidth parameters for your deployment. It includes many examples and variations. You can comment out to fit what you want.
 *   **`token_cache_service.py`**: An atomic utility script designed to run either independently or as a pre-plan step inside Terraform. It manages the OAuth2 client credentials grant flow, handles file locking, and caches JWTs.
 *   **`scm_commit_push.py`**: An operations script used to push and commit staged candidate configurations directly to the SCM active plane after validation.
 
@@ -62,17 +62,25 @@ This file is the single source of secret credentials for the workspace and must 
    ```
 3. Review and update as need be `terraform.tfvars` file. Note that for region parameters you use the region display name (e.g., France North, Australia South, Sweden).
 
-4. Initialise Terraform and apply.
+4. The terraform.tfvars includes many examples and variations. You can comment out to fit what you want.
+
+5. If ZTNA is used for the first time, define the ZTNA IP blocks manually and then initialize Terraform and invoke this command to enable onboarding:
+   ```bash
+   terraform init
+   terraform apply -invoke=action.ztna_tenant_start_onboarding.run
+   ```
+
+6. Initialise Terraform and apply.
    ```bash
    terraform init
    terraform apply
    ```
 
-5. You can check the result in SCM UI, then you can commit config with this script
+7. You can check the result in SCM UI, then you can commit config with this script
    ```bash
    python3 scm_commit_push.py
    ```
-6. Destroy all ressources created and commit.
+8. Destroy all ressources created and commit.
    ```bash
    terraform destroy
    python3 scm_commit_push.py

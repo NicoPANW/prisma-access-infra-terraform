@@ -74,6 +74,7 @@ variable "service_connections" {
     })
   }))
   description = "Configuration details for the Service Connection."
+  default     = {}
 }
 
 # ==============================================================================
@@ -87,9 +88,11 @@ variable "remote_networks" {
   type = map(object({
     name                 = string
     region               = string
-    subnets              = list(string)
+    subnets              = optional(list(string))
     license_type         = string
-    bandwidth            = number
+    bandwidth            = optional(number)
+    spn_name             = optional(string)
+    ecmp_load_balancing  = optional(string)
 
     # Primary Tunnel Configurations
     primary_ike_gateway_name     = string
@@ -133,8 +136,129 @@ variable "remote_networks" {
       local_ip_address = string
       secret           = optional(string)
     }))
+
+    # Optional Site configuration wrapper
+    site = optional(object({
+      name         = string
+      type         = optional(string, "third-party-branch")
+      license_type = string # e.g. "FWAAS-SITE-25Mbps", "FWAAS-SITE-50Mbps"
+      city         = optional(string)
+      state        = optional(string)
+      country      = optional(string)
+      zip_code     = optional(string)
+      latitude     = optional(string)
+      longitude    = optional(string)
+      mode         = optional(string, "active")
+      backup_remote_network = optional(string)
+      qos = optional(object({
+        profile = string
+        cir     = number
+      }))
+    }))
   }))
   description = "Map of Remote Network configurations dynamically matching customer migration requirements."
+  default     = {}
+}
+
+# ==============================================================================
+# ZTNA SYSTEM VARIABLES
+# ==============================================================================
+variable "ztna_host" {
+  type        = string
+  description = "Target API endpoint host for ZTNA resources."
+  default     = "api.sase.paloaltonetworks.com"
+}
+
+variable "ztna_x_panw_region" {
+  type        = string
+  description = "Region code for the x-panw-region HTTP header (e.g. americas, europe, fr, de, etc.)."
+  default     = "fr"
+}
+
+# ==============================================================================
+# ZTNA Connector SCHEMA DEFINITIONS
+# ==============================================================================
+
+variable "ztna_connector_groups" {
+  type = map(object({
+    name             = string
+    description      = optional(string)
+  }))
+  description = "Map of ZTNA Connector Groups."
+  default     = {}
+}
+
+variable "ztna_connectors" {
+  type = map(object({
+    name            = string
+    connector_group = string
+    description     = optional(string)
+  }))
+  description = "Map of individual ZTNA Connectors assigned to groups."
+  default     = {}
+}
+
+variable "ztna_fqdn_applications" {
+  type = map(object({
+    name             = string
+    fqdn             = string
+    connector_groups = list(string)
+    description      = optional(string)
+  }))
+  description = "Map of ZTNA FQDN Private Applications."
+  default     = {}
+}
+
+variable "ztna_subnets" {
+  type = map(object({
+    name             = string
+    subnets          = list(string)
+    connector_groups = list(string)
+    description      = optional(string)
+  }))
+  description = "Map of ZTNA Subnet-based Private Applications."
+  default     = {}
+}
+
+variable "ztna_wildcards" {
+  type = map(object({
+    name             = string
+    domain           = string
+    connector_groups = list(string)
+    description      = optional(string)
+  }))
+  description = "Map of ZTNA Wildcard Domain Applications."
+  default     = {}
+}
+
+# ==============================================================================
+# SECURITY RULES SCHEMA DEFINITION
+# ==============================================================================
+variable "security_rules" {
+  type = map(object({
+    name            = optional(string)
+    folder          = optional(string)
+    position        = optional(string, "pre")
+    action          = optional(string, "allow")
+    from            = optional(list(string), ["trust"])
+    to              = optional(list(string), ["any"])
+    source          = optional(list(string), ["any"])
+    destination     = optional(list(string), ["any"])
+    source_user     = optional(list(string), ["any"])
+    category        = optional(list(string), ["any"])
+    application     = optional(list(string), ["any"])
+    service         = optional(list(string), ["any"])
+    source_hip      = optional(list(string), ["any"])
+    destination_hip = optional(list(string), ["any"])
+    log_setting     = optional(string, "Cortex Data Lake")
+    log_end         = optional(bool, true)
+    log_start       = optional(bool, false)
+    disabled        = optional(bool, false)
+    description     = optional(string)
+    profile_group   = optional(string, "best-practice")
+  }))
+  description = "Map of SCM Security Rules."
+  default     = {}
 }
 
 # ==============================================================================
