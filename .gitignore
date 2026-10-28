@@ -2,6 +2,7 @@
 auth-token.json
 
 # dynamic volatile runtime tokens
+.*jwt-token*
 jwt-token.json
 jwt-token.json.lock
 
@@ -15,7 +16,7 @@ region-mappings.json
 
 # terraform local state files (highly sensitive - contains plain-text PSKs/secrets)
 *.tfstate
-*.tfstate.backup
+*.tfstate.*
 
 # python compiler caches
 __pycache__/
